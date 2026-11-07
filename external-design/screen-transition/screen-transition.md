@@ -64,18 +64,26 @@ Main task "dispatch a blood order": S-F01-03 → S-F01-04. Two screens from the 
 
 ```mermaid
 flowchart LR
-  entry(["Opens NBSP"])
-  draft(["Notification: forecast draft ready"])
-  nav(["Main menu<br>on every screen"])
-  S00_01["S-F04-01<br>Sign in"]
-  S03_02["S-F03-02<br>Demand data review"]
-  S03_04["S-F03-04<br>Forecast review and approval"]
-  entry --> S00_01
-  S00_01 -->|"signed in as analyst"| S03_02
-  nav -->|"Demand data"| S03_02
-  nav -->|"Forecast"| S03_04
-  draft --> S03_04
-  S03_04 -->|"back"| S03_02
+    ENTRY(["Opens NBSP"])
+    NOTICE(["Notification: Forecast draft ready"])
+
+    S_F04_01["S-F04-01<br>Sign in"]
+    S_F03_02["S-F03-02<br>Demand Data Review"]
+    S_F03_04["S-F03-04<br>Forecast Review and Approval"]
+
+    ENTRY -->|"No active session"| S_F04_01
+    ENTRY -->|"Active session: Demand data"| S_F03_02
+    ENTRY -->|"Active session: Forecast"| S_F03_04
+
+    S_F04_01 -->|"Signed in: Select Demand data"| S_F03_02
+    S_F04_01 -->|"Signed in: Select Forecast"| S_F03_04
+
+    S_F03_02 -->|"Menu: Forecast"| S_F03_04
+    S_F03_04 -->|"Menu: Demand data"| S_F03_02
+
+    NOTICE -->|"Open with active session"| S_F03_04
+    NOTICE -->|"Sign in required"| S_F04_01
+
 ```
 
 On S-F03-02 the analyst records the validation decision or sends a data-verification request. The request leaves NBSP as an email to the hospital and enters the Hospital Staff diagram at S-F03-03 (see section 1); it is not an arrow here.

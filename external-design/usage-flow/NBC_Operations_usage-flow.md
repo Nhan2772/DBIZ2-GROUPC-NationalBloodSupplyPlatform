@@ -33,6 +33,7 @@ flowchart LR
     U07 -->|"select pending request"| U08
     U08 -->|"[approved and dispatch saved]"| D
     U08 -->|"[staff declined and decision saved]"| R
+    U08 -->|"[staff reselects units and retries if eligible]"| U08
     U08 -->|"[staff returns to select another request]"| U07
 ```
 

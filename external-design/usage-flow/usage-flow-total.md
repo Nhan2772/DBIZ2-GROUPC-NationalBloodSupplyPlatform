@@ -23,7 +23,7 @@ Actor names, decided 2026-11-06: "NBC Staff" is split into the **NBC Blood Stora
 | 4 | NBC Operations also receives alerts (UC-11) and views the inventory dashboard (UC-09). UC-10 stays with the Dept. Update the UC list actors: UC-09 = Dept, NBC Operations, Hospital Staff; UC-11 = Dept, NBC Operations; EARS of FR-02-04 ("responsible NBC Staff"). | UC list, Use Case Diagram, FR-02-04 | Open (edit W0/W1) |
 | 5 | AD-UC-08 revised to v0.4 (one approve-and-dispatch action, BMS lane, shortage blocks dispatch, no "not approved" branch). W1 FR-01-03 needs the two proposed IF clauses; FR-01-04 and UC-02 should say "dispatched", not "approved". | W1 FR-01-03, FR-01-04, UC-02 | Done in AD; W1 open |
 
-## Hospital Staff: order blood and receive it
+## Hospital Staff: Flow 1 — Order blood and Receive
 
 ```mermaid
 flowchart LR
@@ -43,7 +43,7 @@ flowchart LR
 
 UC-02 is only available once NBC has approved and dispatched the request (the NBC steps are in the NBC flow). If the request is invalid, Hospital Staff correct it and resubmit inside UC-01; that loop is drawn in `AD-UC-01.md`, not here.
 
-## Hospital Staff: record blood usage
+## Hospital Staff: Flow 2 — Record blood usage
 
 ```mermaid
 flowchart LR
@@ -59,7 +59,7 @@ flowchart LR
 
 If the usage record is incomplete or the quantity exceeds the hospital inventory, nothing is changed, the reason is shown, and Hospital Staff correct and resubmit inside UC-04 (FR-02-06); that loop is drawn in `AD-UC-04.md`, not here. The updated inventory can then be seen in UC-09 View Inventory Dashboard (S-F02-02), which is drawn in the NBC Dept flow 2; Hospital Staff has no dashboard flow of its own yet.
 
-## Hospital Staff: log surgical schedules with blood demand
+## Hospital Staff: Flow 3 — Log surgical schedules with blood demand
 
 ```mermaid
 flowchart LR
@@ -75,7 +75,7 @@ flowchart LR
 
 If the plan data is invalid, nothing is saved, the reason is shown, and Hospital Staff correct and resubmit inside UC-05 (FR-03-08, proposed); that loop is drawn in `AD-UC-05.md`, not here. How the forecast uses the saved plan belongs to the forecasting use cases, which have no flow yet.
 
-## Hospital Staff: answer a data verification request
+## Hospital Staff: Flow 5 — Respond a data verification request
 
 ```mermaid
 flowchart LR
@@ -138,7 +138,7 @@ flowchart LR
 
 When the person arrives because of an alert (UC-11, a notification with no screen of its own), Flow 2 continues at step 2. NBC Operations gets the same alert and uses the same dashboard screen; its own flows are below.
 
-## NBC Forecasting Analyst: Goal A — Validate clinical demand data (UC-13)
+## NBC Forecasting Analyst: Flow 1 — Validate clinical demand data (UC-13)
 
 ```mermaid
 flowchart LR
@@ -156,7 +156,7 @@ Inside UC-13, not separate boxes: the Analyst selects hospital, date range and b
 
 A recorded decision does not finalise the whole forecasting period. The period becomes Finalised only under FR-03-08 (no unresolved flagged record, or the cut-off is reached).
 
-## NBC Forecasting Analyst: Goal B — Review a draft forecast (UC-15)
+## NBC Forecasting Analyst: Flow 2 — Review a draft forecast (UC-15)
 
 ```mermaid
 flowchart LR
@@ -211,7 +211,7 @@ NBC Operations also receives the alert (UC-11, decided 2026-11-06). When the per
 | Use case | Started by | Described in |
 |---|---|---|
 | UC-17 Synchronise NBC Inventory | Time (every N minutes) / Blood Management Software | `AD-UC-17.md` |
-| UC-11 Receive Below-Threshold Alert | Called at the end of UC-17 after a valid synchronisation; the Dept and NBC Operations receive the alert (a notification, no screen) | `AD-UC-11.md` |
+| UC-11 Receive Below-Threshold Alert | Called at the end of UC-17 after a valid synchronisation; the Dept receives the alert (a notification, no screen) | `AD-UC-11.md` |
 | FR-03-08 Close validation period at forecast cut-off | NBSP rule or configured cut-off | Automated function, not a box in the UC-13 or UC-15 flows |
 | FR-03-05 Generate draft blood-demand forecast | NBSP, when the period data is Finalised | Automated function that comes before UC-15 |
 

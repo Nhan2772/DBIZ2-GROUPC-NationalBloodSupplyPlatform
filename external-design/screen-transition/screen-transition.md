@@ -94,15 +94,17 @@ On S-F03-02 the analyst records the validation decision or sends a data-verifica
 flowchart LR
   entry(["Opens NBSP"])
   alert(["Below-threshold alert received"])
-  nav(["Main menu<br>on every screen"])
-  S00_01["S-F04-01<br>Sign in"]
+  S04_01["S-F04-01<br>Sign in"]
   S03_05["S-F03-05<br>Validated forecast"]
   S02_02["S-F02-02<br>Inventory dashboard"]
-  entry --> S00_01
-  S00_01 -->|"signed in as NBC Operations"| S03_05
-  nav -->|"Forecast"| S03_05
-  nav -->|"Inventory"| S02_02
-  alert --> S02_02
+  entry --> S04_01
+  S04_01 -->|"signed in, to view the forecast"| S03_05
+  S04_01 -->|"signed in, to check stock"| S02_02
+  S03_05 -->|"Menu: Inventory"| S02_02
+  S02_02 -->|"Menu: Forecast"| S03_05
+  alert -->|"[signed in]"| S02_02
+  alert -->|"[session expired]"| S04_01
+  S04_01 -->|"[came from an alert] signed in"| S02_02
 ```
 
 NBC Operations shares S-F02-02 with the Dept (decided 2026-11-06); the screen is owned in section 2. The alert (UC-11) is a notification with no screen of its own, so the entry point "Below-threshold alert received" leads to S-F02-02.

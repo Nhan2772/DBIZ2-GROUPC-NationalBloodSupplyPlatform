@@ -9,26 +9,27 @@ NBSP has no home screen in the screen list, so each diagram has a "Main menu" no
 ```mermaid
 flowchart LR
   entry(["Opens NBSP"])
-  mail(["Link in verification email"])
-  nav(["Main menu<br>on every screen"])
-  S00_01["S-F04-01<br>Sign in"]
+  notif(["Verification request notification from NBC"])
+  S04_01["S-F04-01<br>Sign in"]
   S01_01["S-F01-01<br>Blood request form"]
   S01_02["S-F01-02<br>Shipment details"]
   S02_01["S-F02-01<br>Blood usage record"]
   S02_02["S-F02-02<br>Inventory dashboard"]
   S03_01["S-F03-01<br>Blood demand log"]
   S03_03["S-F03-03<br>Verification response"]
-  entry --> S00_01
-  S00_01 -->|"signed in"| S01_01
+  entry --> S04_01
+  S04_01 -->|"signed in, to order blood"| S01_01
+  S04_01 -->|"signed in, to record usage"| S02_01
+  S04_01 -->|"signed in, to log blood demand"| S03_01
   S01_01 -->|"[request submitted] View shipment"| S01_02
   S01_02 -->|"Request blood"| S01_01
-  nav -->|"Shipments"| S01_02
-  nav -->|"Record usage"| S02_01
-  nav -->|"Inventory"| S02_02
-  nav -->|"Blood demand"| S03_01
-  nav -->|"Verification requests"| S03_03
   S02_01 -->|"[usage saved] View inventory"| S02_02
-  mail --> S03_03
+  S02_02 -->|"Menu: Record usage"| S02_01
+  S03_01 -->|"Menu: Verification requests"| S03_03
+  S03_03 -->|"Menu: Blood demand"| S03_01
+  notif -->|"[signed in]"| S03_03
+  notif -->|"[session expired]"| S04_01
+  S04_01 -->|"[came from a notification] signed in"| S03_03
 ```
 
 Main task "order blood": S-F01-01 → S-F01-02. One step from the start screen; confirming that the blood arrived is an action on S-F01-02.
@@ -39,23 +40,24 @@ Main task "order blood": S-F01-01 → S-F01-02. One step from the start screen; 
 flowchart LR
   entry(["Opens NBSP"])
   alert(["Below-threshold alert received"])
-  nav(["Main menu<br>on every screen"])
-  S00_01["S-F04-01<br>Sign in"]
+  S04_01["S-F04-01<br>Sign in"]
   S01_03["S-F01-03<br>Request queue"]
   S01_04["S-F01-04<br>Order review and dispatch"]
   S02_02["S-F02-02<br>Inventory dashboard"]
   S02_03["S-F02-03<br>Near-expiry units"]
-  entry --> S00_01
-  S00_01 -->|"signed in as NBC Dept"| S01_03
+  entry --> S04_01
+  S04_01 -->|"signed in, to fulfil requests"| S01_03
+  S04_01 -->|"signed in, to check stock"| S02_02
   S01_03 -->|"opens a request"| S01_04
   S01_04 -->|"[dispatched, or left Pending with the reason] Back to queue"| S01_03
   S01_03 -->|"Check stock"| S02_02
   S02_02 -->|"Back to queue"| S01_03
   S02_02 -->|"Near-expiry units"| S02_03
   S02_03 -->|"back"| S02_02
-  nav -->|"Requests"| S01_03
-  nav -->|"Inventory"| S02_02
-  alert --> S02_02
+  S02_03 -->|"Menu: Requests"| S01_03
+  alert -->|"[signed in]"| S02_02
+  alert -->|"[session expired]"| S04_01
+  S04_01 -->|"[came from an alert] signed in"| S02_02
 ```
 
 Main task "dispatch a blood order": S-F01-03 → S-F01-04. Two screens from the start screen.

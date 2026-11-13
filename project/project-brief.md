@@ -31,8 +31,8 @@ in [the CVCA](../context/cvca.md) (stakeholder requirements) and, in money terms
 
 | Member | Role | Owns |
 |---|---|---|
-| Owner A | Project manager | TBD |
-| Owner B | TBD | TBD |
-| Owner C | TBD | TBD |
-| Owner D | TBD | TBD |
-| Owner E | TBD | TBD |
+| Vu Thanh Nhan | Project manager | TBD |
+| Nguyen Minh Anh | TBD | TBD |
+| Dao Bich Hang | TBD | TBD |
+| Phung Duc Minh | TBD | TBD |
+| Le Thanh Nga | TBD | TBD |

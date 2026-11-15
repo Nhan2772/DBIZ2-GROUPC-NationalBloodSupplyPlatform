@@ -1,12 +1,12 @@
-# **Sequence Diagram: SD-UC-09 View inventory**
+# Sequence Diagram: SD-UC-09 View inventory
 
 | Field | Value |
-| ----- | ----- |
+|---|---|
 | Use case | UC-XX View inventory |
 | Version | v1 |
-| FRs | FR-XX-XX |
+| FRs | FR-02-02 |
 
-```
+```mermaid
 sequenceDiagram
   autonumber
   actor H as Hospital Staff
@@ -46,4 +46,3 @@ sequenceDiagram
     deactivate D
   end
 ```
-

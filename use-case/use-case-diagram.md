@@ -108,10 +108,3 @@ One sequence diagram per use case, at analysis level: the lifelines are the elem
 | UC-16 View Validated Blood Forecast | [SD-UC-16](SD-UC-16.md) | Done |
 | UC-17 Synchronise NBC Inventory | [SD-UC-17](SD-UC-17.md) | Done (new use case, approved 2026-11-01) |
 
-## Open points
-
-| # | Point | Where to fix |
-|---|---|---|
-| 1 | Who receives the below-threshold alert (UC-11)? AD-UC-11 v0.9 says the Dept only. Context Diagram v4, Usage Flow v2.2 and SD-UC-11 still list NBC Operations as a second recipient. This diagram follows AD-UC-11 (Dept only). If the team decides Operations also receives alerts, add the line `OPS --- UC11` | Team decision, then Context Diagram, SD-UC-11, FR-02-04 |
-| 2 | UC list (mid-term report) has 16 use cases and still says "NBC Staff" and "Hospitals" as actors; UC-17 is missing there | UC list |
-| 3 | Actor names must be the same in the UC list, this diagram and the Context Diagram | UC list, Context Diagram |

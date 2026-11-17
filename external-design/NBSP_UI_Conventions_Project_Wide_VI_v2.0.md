@@ -1,4 +1,4 @@
-# Quy ước giao diện người dùng — NBSP / HuyếtMạch (toàn dự án)
+# Quy ước giao diện người dùng — NBSP
 
 > **DBIZ2 — Nhóm C · Bản đề xuất v2.0 · 17/11/2026**  
 > **Phạm vi:** Toàn bộ National Blood Supply Chain Platform (NBSP), gồm Bệnh viện, Bộ phận Lưu trữ & Phân phối máu NBC, Chuyên viên phân tích dự báo NBC và Bộ phận Vận hành/Dự báo NBC.  

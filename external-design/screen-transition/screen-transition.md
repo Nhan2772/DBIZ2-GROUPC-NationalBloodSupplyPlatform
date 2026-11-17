@@ -9,7 +9,9 @@ NBSP has no home screen in the screen list, so each diagram has a "Main menu" no
 ```mermaid
 flowchart LR
   entry(["Opens NBSP"])
-  notif(["Verification request notification from NBC"])
+  notif(["Verification request email from NBC"])
+  rej(["Notification: order rejected"])
+  nav(["Navigation bar<br>on every screen"])
   S04_01["S-F04-01<br>Sign in"]
   S01_01["S-F01-01<br>Blood request form"]
   S01_02["S-F01-02<br>Shipment details"]
@@ -18,18 +20,22 @@ flowchart LR
   S03_01["S-F03-01<br>Blood demand log"]
   S03_03["S-F03-03<br>Verification response"]
   entry --> S04_01
-  S04_01 -->|"signed in, to order blood"| S01_01
-  S04_01 -->|"signed in, to record usage"| S02_01
-  S04_01 -->|"signed in, to log blood demand"| S03_01
+  S04_01 -->|"signed in (first screen)"| S01_01
   S01_01 -->|"[request submitted] View shipment"| S01_02
   S01_02 -->|"Request blood"| S01_01
+  nav -->|"Request blood"| S01_01
+  nav -->|"Shipments"| S01_02
+  nav -->|"Record usage"| S02_01
+  nav -->|"Inventory"| S02_02
+  nav -->|"Blood demand"| S03_01
+  nav -->|"Verification requests"| S03_03
   S02_01 -->|"[usage saved] View inventory"| S02_02
-  S02_02 -->|"Menu: Record usage"| S02_01
-  S03_01 -->|"Menu: Verification requests"| S03_03
-  S03_03 -->|"Menu: Blood demand"| S03_01
   notif -->|"[signed in]"| S03_03
   notif -->|"[session expired]"| S04_01
-  S04_01 -->|"[came from a notification] signed in"| S03_03
+  S04_01 -->|"[came from a verification email] signed in"| S03_03
+  rej -->|"[signed in]"| S01_02
+  rej -->|"[session expired]"| S04_01
+  S04_01 -->|"[came from a rejection notification] signed in"| S01_02
 ```
 
 Main task "order blood": S-F01-01 → S-F01-02. One step from the start screen; confirming that the blood arrived is an action on S-F01-02.

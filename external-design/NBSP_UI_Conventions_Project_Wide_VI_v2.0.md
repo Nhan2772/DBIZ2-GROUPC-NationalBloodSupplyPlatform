@@ -8,7 +8,7 @@
 
 ## 0. Phạm vi, nguồn tham chiếu và nguyên tắc chung
 
-Tài liệu này **thay thế quy ước chỉ dành cho “Hospital Staff — Flow 1”**. Quy ước áp dụng cho **13 màn hình** trong `screen-list.md`, các luồng của **4 nhóm người dùng** trong `usage-flow-total.md` và những trạng thái giao diện xuất hiện trong các use case liên quan. Không tự tạo màn hình mới chỉ vì xuất hiện thông báo, trạng thái, cửa sổ xác nhận hoặc một tác vụ nền.
+Quy ước áp dụng cho **13 màn hình** trong `screen-list.md`, các luồng của **4 nhóm người dùng** trong `usage-flow-total.md` và những trạng thái giao diện xuất hiện trong các use case liên quan. Không tự tạo màn hình mới chỉ vì xuất hiện thông báo, trạng thái, cửa sổ xác nhận hoặc một tác vụ nền.
 
 | Nhóm người dùng | Phạm vi thao tác theo Usage Flow | Màn hình tiêu biểu |
 |---|---|---|

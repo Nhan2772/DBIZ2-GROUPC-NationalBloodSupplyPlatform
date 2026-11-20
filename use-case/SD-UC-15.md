@@ -10,8 +10,8 @@
 sequenceDiagram
     autonumber
     actor FA as NBC Forecasting Analyst
-    participant NBSP as NBSP System
-    participant AM as Active Model
+    participant NBSP as NBSP Backend
+    participant AM as Forecast Model
 
     Note over FA,AM: Trigger - demand data of the period is validated and finalized (UC-13)
 

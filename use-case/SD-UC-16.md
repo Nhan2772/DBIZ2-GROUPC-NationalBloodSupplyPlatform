@@ -10,8 +10,8 @@
 sequenceDiagram
     autonumber
     actor OPS as NBC Operations
-    participant Portal as NBSP Portal
-    participant FS as Forecast Service
+    participant Portal as NBSP Web App
+    participant FS as NBSP Backend
     participant DB as NBSP Database
 
     OPS->>+Portal: Select scope (NBC-wide or one hospital), blood group, time horizon

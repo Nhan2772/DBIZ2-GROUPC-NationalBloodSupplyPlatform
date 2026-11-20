@@ -18,7 +18,7 @@
 sequenceDiagram
     autonumber
     actor Analyst as NBC Forecasting Analyst
-    participant NBSP as NBSP System
+    participant NBSP as NBSP Backend
     actor Hospital as Hospital Staff
 
     Analyst->>NBSP: Select hospital, date range, and blood group
@@ -73,7 +73,6 @@ The UC-13 Sequence Diagram illustrates the process for validating clinical deman
 
 ## Source and review notes
 
-- Recovered from the last simplified Mermaid version in `LỊCH SỬ CHATGPT DBIZ 2.pdf`, PDF pp. 76–77. Wrapped PDF lines are joined into valid Mermaid message lines; the overdue guard is made explicit so it applies only where verification was requested. Other business branches and the original level of detail are preserved.
 - `usage-flow-total.md` v2.2 (07/11/2026) confirms the three analyst decisions and the UC-14 handoff. The hospital response and overdue-request processing belong to UC-14 / FR-03-04; this sequence illustrates the analyst-facing consequences, not a second implementation of that process.
 - The source sequence depicts one flagged record. Repeat the applicable decision for each flagged record as needed. A decision on one record does not finalise the entire period. Under FR-03-08, the period is Finalised only when no flagged record remains unresolved or the forecast cut-off is reached. Draft generation (FR-03-05) and review (UC-15) are downstream, not immediate screen transitions.
 - The anomaly rule definitions, timeframe, cut-off configuration and detailed persistence/API design are outside this simplified sequence. No new rule values are assumed.

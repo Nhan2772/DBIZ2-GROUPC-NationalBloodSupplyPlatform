@@ -66,7 +66,7 @@ The data group names are the names Screen Specs use as data sources.
 
 | BR | Rule |
 |---|---|
-| BR-01 | A blood request needs a blood type chosen from the 8 valid types (A+, A-, B+, B-, AB+, AB-, O+, O-), a product type from the enabled list (release 1: red blood cells), an urgency of Emergency, Urgent or Routine, and a quantity that is a whole number of 1 or more. A missing or invalid value means no request is created. |
+| BR-01 | A blood request needs a blood type chosen from the 8 valid types (A+, A-, B+, B-, AB+, AB-, O+, O-), blood product from the enabled list (release 1: red blood cells), an urgency of Emergency, Urgent or Routine, and a quantity that is a whole number of 1 or more. A missing or invalid value means no request is created. |
 | BR-02 | A request moves in order Pending, Dispatched, Received, or from Pending to Not approved (final, reason required). Only a Pending request can be approved and dispatched. |
 | BR-03 | Hospital Staff can confirm receipt only for a shipment in Dispatched status, and only once per shipment, so units are never added to hospital inventory twice. |
 | BR-04 | Only eligible blood units (not expired, available) can be assigned to an order. If eligible stock is insufficient, dispatch is blocked. |

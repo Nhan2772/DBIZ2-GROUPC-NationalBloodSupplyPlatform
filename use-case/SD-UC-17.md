@@ -9,8 +9,8 @@
 ```mermaid
 sequenceDiagram
     autonumber
-    participant SCH as Scheduler
-    participant NBSP as NBSP System
+    participant SCH as NBSP Scheduler
+    participant NBSP as NBSP Backend
     participant DB as NBSP Database
     participant BMS as Blood Management Software
 

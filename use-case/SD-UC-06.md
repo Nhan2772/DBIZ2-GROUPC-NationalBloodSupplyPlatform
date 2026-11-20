@@ -13,8 +13,8 @@ type) are shown in the activity diagram [AD-UC-06](../activity/AD-UC-06.md), not
 ```mermaid
 sequenceDiagram
   actor H as Hospital Staff
-  participant P as NBSP Portal
-  participant B as NBSP Central Backend
+  participant P as NBSP Web App
+  participant B as NBSP Backend
   participant D as NBSP Database
   H->>P: enter account name and password, click "Sign In"
   P->>B: send credentials payload (username, password)

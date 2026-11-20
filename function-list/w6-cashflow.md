@@ -2,6 +2,8 @@
 
 Inputs: scenario costs from W5_Handover (Must / Must+Should / full scope), per-feature effort from W2_Rollup.
 
+> **To recalculate (18/11/2026).** The tables below still use the W5 v1 scenario costs (43.74 / 58.16 / 74.82 million VND). W5 v2 costs are 45.16 / 60.08 / 76.24 million VND (decision log D-25). Recalculate in the workbook and add the benefit derivation that the Results table calls "Section 1.6". Enter hospital onboarding (opening balance import, training) under "Other one-time cost".
+
 ## 1. Assumptions
 
 | Assumption | Value | Unit | Source / note |

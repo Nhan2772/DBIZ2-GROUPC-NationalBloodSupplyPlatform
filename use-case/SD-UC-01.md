@@ -13,10 +13,10 @@ type) are shown in the activity diagram [AD-UC-01](../activity/AD-UC-01.md), not
 ```mermaid
 sequenceDiagram
   actor H as Hospital Staff
-  participant P as NBSP Portal
-  participant B as NBSP Central Backend
+  participant P as NBSP Web App
+  participant B as NBSP Backend
   participant D as NBSP Database
-  H->>P: enter blood type, quantity, urgency and submit
+  H->>P: enter blood type, blood products, quantity, urgency, date, contact and submit
   P->>B: send request blood payload
   B->>B: validate data and check rules
   alt valid request

@@ -10,7 +10,7 @@
 sequenceDiagram
     autonumber
     actor HS as Hospital Staff
-    participant NBSP as NBSP System
+    participant NBSP as NBSP Backend
     actor FA as NBC Forecasting Analyst
 
     alt Hospital responds before deadline

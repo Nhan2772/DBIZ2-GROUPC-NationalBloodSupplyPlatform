@@ -10,7 +10,6 @@ NBSP has no home screen in the screen list, so each diagram has a "Main menu" no
 flowchart LR
   entry(["Opens NBSP"])
   notif(["Verification request email from NBC"])
-  rej(["Notification: order rejected"])
   nav(["Navigation bar<br>on every screen"])
   S04_01["S-F04-01<br>Sign in"]
   S01_01["S-F01-01<br>Blood request form"]
@@ -35,12 +34,9 @@ flowchart LR
   notif -->|"[signed in]"| S03_03
   notif -->|"[session expired]"| S04_01
   S04_01 -->|"[came from a verification email] signed in"| S03_03
-  rej -->|"[signed in]"| S01_02
-  rej -->|"[session expired]"| S04_01
-  S04_01 -->|"[came from a rejection notification] signed in"| S01_02
 ```
 
-Main task "order blood" (Flow 1): S-F01-01 → S-F01-02. One step from the start screen; confirming that the blood arrived is an action on S-F01-02.
+Main task "order blood" (Flow 1): S-F01-01 → S-F01-02. One step from the start screen; confirming that the blood arrived is an action on S-F01-02. S-F01-02 lists the hospital's requests with their status, so a Not approved request and its reason are seen there through the menu "Shipments"; no message is sent to the hospital.
 
 Task "record blood usage and planned blood demand" (Flow 2): the staff member opens S-F02-01 or S-F03-01 from the menu, depending on what there is to record. After saving, a link goes straight to the other screen ("Log blood demand" / "Record usage"), so the "More to record?" loop of Flow 2 needs no trip back through the menu. The two screens stay separate: UC-04 and UC-05 belong to different functions (F02, F03) and save different data.
 
@@ -49,7 +45,7 @@ Task "record blood usage and planned blood demand" (Flow 2): the staff member op
 ```mermaid
 flowchart LR
   entry(["Opens NBSP"])
-  alert(["Below-threshold alert received"])
+  alert(["Below-threshold alert email"])
   S04_01["S-F04-01<br>Sign in"]
   S01_03["S-F01-03<br>Request queue"]
   S01_04["S-F01-04<br>Order review and dispatch"]
@@ -59,7 +55,7 @@ flowchart LR
   S04_01 -->|"signed in, to fulfil requests"| S01_03
   S04_01 -->|"signed in, to check stock"| S02_02
   S01_03 -->|"opens a request"| S01_04
-  S01_04 -->|"[dispatched, or left Pending with the reason] Back to queue"| S01_03
+  S01_04 -->|"[dispatched, not approved, or left Pending with the reason] Back to queue"| S01_03
   S01_03 -->|"Check stock"| S02_02
   S02_02 -->|"Back to queue"| S01_03
   S02_02 -->|"Near-expiry units"| S02_03
@@ -77,7 +73,7 @@ Main task "dispatch a blood order": S-F01-03 → S-F01-04. Two screens from the 
 ```mermaid
 flowchart LR
     ENTRY(["Opens NBSP"])
-    NOTICE(["Notification: Forecast draft ready"])
+    NOTICE(["Email: forecast draft ready"])
 
     S_F04_01["S-F04-01<br>Sign in"]
     S_F03_02["S-F03-02<br>Demand Data Review"]
@@ -105,7 +101,7 @@ On S-F03-02 the analyst records the validation decision or sends a data-verifica
 ```mermaid
 flowchart LR
   entry(["Opens NBSP"])
-  alert(["Below-threshold alert received"])
+  alert(["Below-threshold alert email"])
   S04_01["S-F04-01<br>Sign in"]
   S03_05["S-F03-05<br>Validated forecast"]
   S02_02["S-F02-02<br>Inventory dashboard"]
@@ -152,7 +148,7 @@ NBC Operations shares S-F02-02 with the Dept (decided 2026-11-06); the screen is
 | NBC Dept | Flow 2 | UC-09 or UC-10 to Flow 1 | S-F02-02 → S-F01-03 ("Back to queue"), or S-F02-03 → menu "Requests" |
 | NBC Dept | Flow 2 | alert (UC-11) to UC-09 | Entry point "Below-threshold alert received" (a notification, no screen) → S-F02-02 Inventory dashboard |
 | NBC Forecasting Analyst | Flow 1 | UC-12 to UC-13 | S-F04-01 Sign in → S-F03-02 Demand data review ("Signed in: Select Demand data") |
-| NBC Forecasting Analyst | Flow 2 | UC-12 to UC-15 | S-F04-01 → S-F03-04 Forecast review and approval ("Signed in: Select Forecast"); or entry point "Notification: Forecast draft ready" → S-F03-04 (after S-F04-01 when signed out) |
+| NBC Forecasting Analyst | Flow 2 | UC-12 to UC-15 | S-F04-01 → S-F03-04 Forecast review and approval ("Signed in: Select Forecast"); or entry point "Email: forecast draft ready" → S-F03-04 (after S-F04-01 when signed out) |
 | NBC Forecasting Analyst | — | UC-13 and UC-15 | Not joined by an arrow in the usage flow (asynchronous handoff); on the diagram the menu arrows between S-F03-02 and S-F03-04 are only navigation |
 | NBC Operations | Flow 1 | UC-12 to UC-16 | S-F04-01 → S-F03-05 Validated forecast ("signed in, to view the forecast") |
 | NBC Operations | Flow 2 | UC-12 to UC-09 | S-F04-01 → S-F02-02 Inventory dashboard ("signed in, to check stock") |

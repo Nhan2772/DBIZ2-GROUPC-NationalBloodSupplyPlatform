@@ -1,6 +1,6 @@
 # Sequence Diagram: SD-UC-02 View shipment details
 
-Lesson 4, analysis level: how the parts of NBSP talk to each other when Hospital Staff look up the shipment of an approved blood request. The exchange is read-only. The lifelines are the elements of the
+Lesson 4, analysis level: how the parts of NBSP talk to each other when Hospital Staff look up the shipment of a dispatched blood request. The exchange is read-only. The lifelines are the elements of the
 [physical design](../architecture/architecture.md). The user's own actions (what they choose or
 type) are shown in the activity diagram [AD-UC-02](../activity/AD-UC-02.md), not here.
 
@@ -16,7 +16,7 @@ sequenceDiagram
   participant P as NBSP Web App
   participant B as NBSP Backend
   participant D as NBSP Database
-  H->>P: open My Requests and select an approved shipment
+  H->>P: open My Requests (list with status) and select a dispatched request
   P->>B: fetch shipment details (Order ID)
   B->>D: query order status, expiry date, ETA and delivery status
   D-->>B: shipment record details

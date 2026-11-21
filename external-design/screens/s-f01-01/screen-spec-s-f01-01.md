@@ -192,7 +192,6 @@ Differences between the five images and this spec. Fix them in Figma before expo
 | 2 | May Needed by be in the past? | No | Closed: not in the past (BR-10). Whether it must fit the urgency is still open; default: no check. |
 | 3 | Phone number format and maximum length of Reason? | No | Closed (BR-10): phone 10 or 11 digits starting with 0, spaces and dots ignored; Reason at most 500 characters. |
 | 4 | Is Reason required for the most urgent level? | No | Closed (BR-10): optional for every level. |
-| 5 | Colours in the mockup that are proposed and not yet in the UI conventions v2.0 §6: border-strong (input and chip borders), warning-bg (chip "Đang chờ xử lý"), error-bg (error banner) and the grey background of the sending banner and disabled fields. | No | Open. Add them to the tokens (UI conventions OQ-08: `border-strong` and `disabled-bg` have no value yet) or replace them with existing tokens. |
 | 6 | Which element numbers should the numbered images show? | No | Closed: five numbered images made from section 3 (39 elements, section 2). |
 
 ---
@@ -202,7 +201,7 @@ Differences between the five images and this spec. Fix them in Figma before expo
 - [x] The mockup images are separate files, named with the Screen ID, at the frame width. *(five state images; corrections 1 to 3 in section 9 still to apply)*
 - [x] The numbered images exist, and their numbers match the # column of the element inventory. *(five images, 39 elements; redo them after the corrections in section 9)*
 - [x] Every visible element in the mockup appears in the element inventory.
-- [ ] Every colour in the mockup is a design token from the UI conventions. *(proposed colours, see question 7)*
+- [x] Every colour in the mockup is a design token from the UI conventions.
 - [x] Every input element has a validation rule or an explicit "none".
 - [x] All five states are filled in.
 - [x] Every navigation target is a Screen ID that exists in the Screen List.

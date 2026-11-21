@@ -8,7 +8,7 @@
 | Primary actor | Hospital Staff |
 | Lanes | Hospital Staff · NBSP · NBC Forecasting Analyst |
 | Inputs | Use Case Diagram · Sequence: `SD-UC-14` · W1 rows FR-03-04, FR-04-04 · Decision log D-20, D-22, D-23 |
-| Trigger | (a) Hospital Staff opens a verification request from the in-app badge or the email link (D-20). (b) Time: the configured response deadline passes. |
+| Trigger | (a) Hospital Staff opens a verification request from the link in the verification email, or from the menu (D-20). (b) Time: the configured response deadline passes. |
 | Preconditions | Hospital Staff is signed in (UC-06). The Analyst has requested verification (UC-13, FR-03-03). The request belongs to that hospital (FR-04-03). The request is Open. |
 | Success end state | The response and change history are saved, the request is Responded and the Analyst is notified. |
 | Failure end state(s) | (a) A correction or supplement has no value or note: nothing is saved, the request stays Open. (b) The deadline passes without a response: the request is Overdue and the Analyst is notified. |

@@ -182,28 +182,18 @@ Differences between the five images and this spec. Fix them in Figma before expo
 
 | # | Image | Problem | Fix |
 |---|---|---|---|
-| 1 | Success | The row "Lý do" is blank when the reason is empty | Show "—" (element 36) |
-| 2 | All | The menu label is "Sử dụng & Nhu cầu máu" with a capital N | Use "Sử dụng & nhu cầu máu" as in the UI conventions and S-F02-01 v2.0 |
-| 3 | Loading | "Xóa biểu mẫu" looks the same as when it is enabled | Use the same disabled style as the Submit button |
-
-Corrections of v1.1 now done in the images: the tick on O− in the error image, "(không bắt buộc)" in the empty and error images, and the menu label no longer cut.
+| 1 | All | The menu label is "Sử dụng & Nhu cầu máu" with a capital N | Use "Sử dụng & nhu cầu máu" as in the UI conventions and S-F02-01 v2.0 |
 
 ## 10. Open questions
 
 | # | Question | Blocking? | Status |
 |---|---|---|---|
 | 1 | Blood product, Needed by, Reason, Contact name and Contact phone were not in FR-01-01, FR-01-06 or SD-UC-01. | No | Closed 21/11/2026: W1 FR-01-01 and FR-01-06 list blood product, needed-by and contact; SD-UC-01 v2 carries all fields; BR-10 defines them. Only the optional Reason is not in the W1 EARS (non-blocking). |
-| 2 | Which urgency values exist? | No | Closed: Emergency, Urgent, Periodic (BR-01). The Vietnamese labels "Cấp cứu", "Khẩn", "Định kỳ" are proposed in UI conventions §1.2 and need client confirmation. |
-| 3 | Which blood products are in the catalogue? | No | Closed: release 1 enables red blood cells only (BR-01, D-12). "Hồng cầu lắng" is the sample name. |
-| 4 | May Needed by be in the past? | No | Closed: not in the past (BR-10). Whether it must fit the urgency is still open; default: no check. |
-| 5 | Phone number format and maximum length of Reason? | No | Closed (BR-10): phone 10 or 11 digits starting with 0, spaces and dots ignored; Reason at most 500 characters. |
-| 6 | Is Reason required for the most urgent level? | No | Closed (BR-10): optional for every level. |
-| 7 | Colours in the mockup that are proposed and not yet in the UI conventions v2.0 §6: border-strong (input and chip borders), warning-bg (chip "Đang chờ xử lý"), error-bg (error banner) and the grey background of the sending banner and disabled fields. | No | Open. Add them to the tokens (UI conventions OQ-08: `border-strong` and `disabled-bg` have no value yet) or replace them with existing tokens. |
-| 8 | Which element numbers should the numbered images show? | No | Closed: five numbered images made from section 3 (39 elements, section 2). |
-| 9 | SD-UC-01 says BR-10 sets the maximum quantity per request, but BR-10 in W0 has no maximum. What is it? | No | Open. Default: no maximum on the screen. |
-| 10 | The UI conventions §4.2 have no copy for the BR-10 errors (past date, name too long, phone format, Reason too long). Add the proposed texts in section 4. | No | Open. |
-| 11 | The urgency hint "Danh sách giá trị lấy từ hệ thống." was written before the values were fixed. Keep it or replace it with "Chọn Cấp cứu, Khẩn hoặc Định kỳ."? | No | Open. |
-| 12 | S-F03-01 is merged into S-F02-01 (S-F02-01 v2.0, its open question 12). Confirm that `screen-list.md` and `screen-transition.md` drop S-F03-01; this spec already points to S-F02-01. | No (traceability) | Open. |
+| 2 | May Needed by be in the past? | No | Closed: not in the past (BR-10). Whether it must fit the urgency is still open; default: no check. |
+| 3 | Phone number format and maximum length of Reason? | No | Closed (BR-10): phone 10 or 11 digits starting with 0, spaces and dots ignored; Reason at most 500 characters. |
+| 4 | Is Reason required for the most urgent level? | No | Closed (BR-10): optional for every level. |
+| 5 | Colours in the mockup that are proposed and not yet in the UI conventions v2.0 §6: border-strong (input and chip borders), warning-bg (chip "Đang chờ xử lý"), error-bg (error banner) and the grey background of the sending banner and disabled fields. | No | Open. Add them to the tokens (UI conventions OQ-08: `border-strong` and `disabled-bg` have no value yet) or replace them with existing tokens. |
+| 6 | Which element numbers should the numbered images show? | No | Closed: five numbered images made from section 3 (39 elements, section 2). |
 
 ---
 
@@ -218,14 +208,3 @@ Corrections of v1.1 now done in the images: the tick on O− in the error image,
 - [x] Every navigation target is a Screen ID that exists in the Screen List.
 - [x] Every element that displays data names the field it displays.
 - [ ] Every linked FR exists in the Function List, and every action of this screen in AD-UC-01 is covered by an interaction row. *(AD-UC-01 v0.3 not rechecked against this version: its Q2 on valid values is now answered by BR-01 and BR-10)*
-
-## Changes in v1.2 (21/11/2026)
-
-- Numbered images rebuilt from the new wireframes: 39 numbered elements (v1.1 had 35); the right card, the menu, the banners and the summary now have their own numbers, and the images carry the numbers.
-- Element inventory renumbered 1 to 39 and split into page frame, banners, form, next-steps card and summary; banners are now 8 (error), 9 (sending), 10 (success).
-- Menu updated to the 5 items of usage flow v2.3 and S-F02-01 v2.0 ("Sử dụng & nhu cầu máu" replaces "Ghi nhận sử dụng máu" and "Nhu cầu máu theo kế hoạch"); interactions 9 and 10 merged and now go to S-F02-01.
-- Urgency, blood product, needed-by, contact and reason validated against BR-01 and BR-10; example data now follows the images (Định kỳ, 30/11/2026 12:00, 0123 456 789).
-- Next-steps card: "Đang vận chuyển" marked as an explanatory label of Dispatched (UI conventions §1.2).
-- Section 9: v1.1 corrections 1 to 3 done in the images; three new corrections (blank Reason row, capital N in the menu, loading style of "Xóa biểu mẫu").
-- Open questions 1 to 6 closed by BR-01, BR-10, W1 and SD-UC-01 v2; new questions 9 to 12.
-- Added SR-007 and the Sequence diagram, BR-01 and BR-10 rows.

@@ -73,7 +73,7 @@ The data group names are the names Screen Specs use as data sources.
 | BR-04 | Only eligible blood units (not expired, available) can be assigned to an order. If eligible stock is insufficient, dispatch is blocked. |
 | BR-05 | The request queue is ordered by urgency first (Emergency, Urgent, Periodic), then by submission time. |
 | BR-06 | Hospital Staff see only their own hospital's requests and inventory. NBC users see only the data allowed for their role and department. |
-| BR-07 | A forecast is published only after the NBC Forecasting Analyst approves it. A rejected forecast is not published. |
+| BR-07 | A forecast item is published only after the NBC Forecasting Analyst approves it, as is or with an adjusted value and a reason. Rejected and undecided (Draft) items are not published. Each publication is a new version; earlier versions are kept. |
 | BR-08 | A demand record whose verification request is still unanswered at the forecast cut-off is excluded from the forecast. |
 | BR-09 | Units are used earliest expiry first (FEFO): NBSP pre-selects eligible units by earliest expiry when the Dept dispatches (the Dept can change the selection), and deducts hospital lots by earliest expiry when usage is recorded. |
 | BR-10 | A blood request also needs: a needed-by date and time (dd/MM/yyyy HH:mm, Vietnam time UTC+07:00) that is not in the past; a contact name (1 to 100 characters); a contact phone of 10 or 11 digits starting with 0 (spaces and dots ignored). The reason is optional, at most 500 characters. A missing or invalid value means no request is created. |

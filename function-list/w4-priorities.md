@@ -42,3 +42,5 @@ Lesson 5 (block W4). Cut by lowering priority, never by lowering estimates. Ever
 | F-04 | FR-04-05 | Operate deployment and regression-test gate | Should | Could | R3: release tests can be run by hand before each release. | 9.2 | 2.760.000 |
 
 v2 totals: Must 162.2 h (58.8%) · Should 55.4 h (20.1%) · Could 58.2 h (21.1%) · total 275.8 h, 76.240.000 VND.
+
+Checked against W1 and W2 (21/11/2026): every row matches the W2 roll-up in person-hours, cost and effective priority, and FR-02-07 is included in the function-point cross-check (EI, 4 FP). No recalculation is pending.

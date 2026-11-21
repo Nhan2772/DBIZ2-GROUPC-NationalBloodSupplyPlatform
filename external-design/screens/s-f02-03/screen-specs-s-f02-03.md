@@ -1,4 +1,4 @@
-# Screen Specification — S-F02-03 Near-expiry units (Đơn vị máu gần hết hạn)
+# Screen Specification: S-F02-03 Near-expiry units 
 
 > DBIZ2 — Group C · NBSP · Draft v0.1 · 21/11/2026
 > Structure follows the Screen Specification template described in the master prompt §7. The reference file `screen-spec-s-f01-01.md` was **not** supplied with this batch (see OQ-14).

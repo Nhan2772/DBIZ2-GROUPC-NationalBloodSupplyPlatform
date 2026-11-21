@@ -171,9 +171,3 @@ Differences between the five images and the conventions. Fix them in Figma befor
 - [x] Every linked FR exists in the Function List, and every step of SD-UC-06 and SD-UC-12 is covered by an interaction row. *(enter and submit → 4; valid credentials → 5 to 9; invalid or unauthorised → Error: sign-in failed. No AD exists for these use cases, see Activity diagrams above)*
 - [x] Contrast measured on the mockups (section 8). *(text passes 4.5:1; component borders fail 3:1, see correction 1)*
 
-## Changes in v1.0 (21/11/2026)
-
-- First version, written from the five wireframes (empty, default, loading, required fields missing, sign-in failed) and the repository documents: `screen-list.md`, `screen-transition.md`, `usage-flow.md` v2.3, UI conventions v2.0, W1 (FR-04-01 to FR-04-03), SD-UC-06 and SD-UC-12.
-- Element inventory of 15 elements, numbered in the images.
-- Sign-in outcomes by role and by email link defined in section 5.
-- Four mockup corrections (borders, brand subtitle, example data, non-token colours); three open questions.

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | System in scope | NBSP, National Blood Supply Chain Platform |
-| Version | v4 (flow labels checked against Usage Flow v2.2, AD-UC-08 v0.4 and the UC list) |
+| Version | v4.1 (flow labels checked against Usage Flow v2.3, AD-UC-08 v0.5 and the UC list; 21/11/2026: Not approved decision and request status added) |
 | Human / organisational actors | NBC Blood Storage and Distribution Department · NBC Forecasting Analyst · NBC Operations · Hospital Staff (180+ Receiving Hospitals) |
 | External systems | Blood Management Software |
 
@@ -26,8 +26,8 @@ flowchart LR
 
     Ops <-->|"<b>In:</b> Forecast query (scope, blood group, time horizon)<br/><b>Out:</b> Approved forecast, accuracy, inventory dashboard with sync time, below-threshold alerts"| NBSP
     Analyst <-->|"<b>In:</b> Validation decisions, forecast review decisions<br/><b>Out:</b> Demand data with anomaly flags, verification responses, draft forecast notices, forecast accuracy"| NBSP
-    Dept <-->|"<b>In:</b> Approve-and-dispatch action, selected units, ETA<br/><b>Out:</b> Hospital blood requests, inventory dashboard, near-expiry units, below-threshold alerts"| NBSP
-    Hospitals <-->|"<b>In:</b> Blood requests, receipt confirmations, usage records, surgery and transfusion plans, verification responses<br/><b>Out:</b> Shipment details, inventory dashboard, verification requests"| NBSP
+    Dept <-->|"<b>In:</b> Approve-and-dispatch action, selected units, ETA, not-approved decision with reason<br/><b>Out:</b> Hospital blood requests, inventory dashboard, near-expiry units, below-threshold alerts"| NBSP
+    Hospitals <-->|"<b>In:</b> Blood requests, receipt confirmations, usage records, surgery and transfusion plans, verification responses<br/><b>Out:</b> Request status (with not-approved reason), shipment details, inventory dashboard, verification requests"| NBSP
     BMS -->|"Latest NBC inventory with source timestamp (scheduled API sync)"| NBSP
     NBSP -->|"Reserve selected blood units (API)"| BMS
 
@@ -47,8 +47,8 @@ Legend: light blue box = human / organisational actor; white box with dark borde
 |---|---|---|---|---|
 | 1 | NBC Operations | Forecast query | Approved forecast, accuracy, inventory dashboard with sync time, below-threshold alerts | UC-16, UC-09, UC-11 |
 | 2 | NBC Forecasting Analyst | Validation decisions, forecast review decisions | Demand data with anomaly flags, verification responses, draft forecast notices, forecast accuracy | UC-13, UC-15 |
-| 3 | NBC Blood Storage and Distribution Department | Approve-and-dispatch action, selected units, ETA | Hospital blood requests, inventory dashboard, near-expiry units, below-threshold alerts | UC-07, UC-08, UC-09, UC-10, UC-11 |
-| 4 | Hospital Staff | Blood requests, receipt confirmations, usage records, surgery and transfusion plans, verification responses | Shipment details, inventory dashboard, verification requests | UC-01 to UC-05, UC-09, UC-14 |
+| 3 | NBC Blood Storage and Distribution Department | Approve-and-dispatch action, selected units, ETA, not-approved decision with reason | Hospital blood requests, inventory dashboard, near-expiry units, below-threshold alerts | UC-07, UC-08, UC-09, UC-10, UC-11 |
+| 4 | Hospital Staff | Blood requests, receipt confirmations, usage records, surgery and transfusion plans, verification responses | Request status (with not-approved reason), shipment details, inventory dashboard, verification requests | UC-01 to UC-05, UC-09, UC-14 |
 | 5 | Blood Management Software | Latest NBC inventory with source timestamp | Reserve selected blood units | UC-17 (FR-02-05, read); UC-08 (FR-01-03, reserve) |
 
 ## Actor mapping (UC list names)

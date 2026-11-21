@@ -12,11 +12,11 @@ Lesson 5 (Function List workshop, block W0). Inputs: [CVCA](../context/cvca.md),
 | UC-04 | Record Blood Usage | Hospital Staff | F-02 | Yes |
 | UC-05 | Log Surgical Schedules with Blood Demand | Hospital Staff | F-03 | Yes |
 | UC-06 | Sign in with Hospital account | Hospital Staff | F-04 | No (sign-in) |
-| UC-07 | View Request Queue | NBC Blood storage & Distribution Department | F-01 | Yes |
-| UC-08 | Approve & Dispatch Blood Order | NBC Blood storage & Distribution Department | F-01 | Yes |
-| UC-09 | View Inventory Dashboard | NBC Blood storage & Distribution Department, Hospital Staff, NBC Operations | F-02 | Yes |
-| UC-10 | View Near-Expiry Blood Units | NBC Blood storage & Distribution Department | F-02 | Yes |
-| UC-11 | Receive Below-Threshold Alert | NBC Blood storage & Distribution Department, NBC Operations | F-02 | Yes |
+| UC-07 | View Request Queue | NBC Blood Storage and Distribution Department | F-01 | Yes |
+| UC-08 | Approve & Dispatch Blood Order | NBC Blood Storage and Distribution Department | F-01 | Yes |
+| UC-09 | View Inventory Dashboard | NBC Blood Storage and Distribution Department, Hospital Staff, NBC Operations | F-02 | Yes |
+| UC-10 | View Near-Expiry Blood Units | NBC Blood Storage and Distribution Department | F-02 | Yes |
+| UC-11 | Receive Below-Threshold Alert | NBC Blood Storage and Distribution Department, NBC Operations | F-02 | Yes |
 | UC-12 | Sign in with NBC account | NBC Blood Storage and Distribution Department, NBC Forecasting Analyst, NBC Operations | F-04 | No (sign-in) |
 | UC-13 | Validate Clinical Demand Data | NBC Forecasting Analyst | F-03 | Yes |
 | UC-14 | Respond to Data Verification Request | Hospital Staff | F-03 | Yes |

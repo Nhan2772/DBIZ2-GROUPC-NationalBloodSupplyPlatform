@@ -12,8 +12,8 @@
 | Preconditions | Hospital Staff is signed in (assumed; sign-in is UC-06 / FR-04-01, not stated in FR-01-01). |
 | Success end state | A Pending blood request exists and is in the NBC request queue. |
 | Failure end state(s) | None in this flow: invalid input is rejected with reasons and the flow returns to validation until the input is valid. Abandoning the request is not modeled (no FR covers it). |
-| FRs covered | `FR-01-01` |
-| Business rules applied | none yet; the rule defining valid input is missing (Q2) |
+| FRs covered | `FR-01-01` · `FR-01-06` |
+| Business rules applied | BR-01 (valid blood type, product type, urgency, quantity) |
 | Version / status | v0.3 · Draft |
 | Author | Nhàn |
 
@@ -30,7 +30,7 @@ swimlane-beta TB
     m1{" "}
     s1("Validate request input (FR-01-01)")
     d1{"Input valid?"}
-    s4("Reject request and show the reason for each invalid field (FR-01-01 proposed)")
+    s4("Reject request and show the reason for each invalid field (FR-01-06)")
     s2("Create Pending blood request (FR-01-01)")
     o1["Blood request [Pending]"]
     s3("Place request in NBC request queue (FR-01-01)")
@@ -43,7 +43,7 @@ swimlane-beta TB
 
 Reading notes:
 
-- **The invalid-input branch is a proposal, not yet an approved requirement.** FR-01-01 today says only validate, create, queue. The loop is drawn as option B of Q1. The workbook row FR-01-01 needs this IF clause added (EARS): *IF the input fails validation, the system SHALL create no request and SHALL show the reason for each invalid field, and Hospital Staff SHALL be able to correct and resubmit.*
+- **The invalid-input branch is now approved as FR-01-06 (W1).** Earlier note: FR-01-01 today says only validate, create, queue. The loop is drawn as option B of Q1. The workbook row FR-01-01 needs this IF clause added (EARS): *IF the input fails validation, the system SHALL create no request and SHALL show the reason for each invalid field, and Hospital Staff SHALL be able to correct and resubmit.*
 - `m1` is a merge. The first submission and every resubmission enter validation through it, so the loop returns through a merge and `s1` has one incoming flow.
 - What counts as "valid" is not defined yet (Q2). Until it is, `d1` traces only to FR-01-01, not to a business rule.
 
@@ -54,7 +54,7 @@ Reading notes:
 | m1 | Merge | (first submission or resubmission) | none (control node) |
 | s1 | Action | Validate request input | FR-01-01 |
 | d1 | Decision | Input valid? | FR-01-01; BR to be added (Q2) |
-| s4 | Action | Reject request and show the reason for each invalid field | FR-01-01, proposed IF clause (Q1) |
+| s4 | Action | Reject request and show the reason for each invalid field | FR-01-06 |
 | s2 | Action | Create Pending blood request | FR-01-01 |
 | o1 | Object node | Blood request [Pending] | FR-01-01 |
 | s3 | Action | Place request in NBC request queue | FR-01-01 |

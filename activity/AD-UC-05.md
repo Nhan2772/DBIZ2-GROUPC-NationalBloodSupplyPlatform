@@ -4,15 +4,15 @@
 |---|---|
 | AD ID | `AD-UC-05` |
 | Use case | `UC-05 Log Surgical Schedules with Blood Demand` |
-| Feature | `<F-ID> <feature name>` [NEEDS CLARIFICATION: copy from W0 Table 2] |
+| Feature | `F-03 Clinical Demand & Forecasting` (W0 Table 2) |
 | Primary actor | Hospital Staff |
-| Lanes | Hospital Staff · Hospital Blood Mgmt Portal |
+| Lanes | Hospital Staff · NBSP |
 | Inputs (L3-L5) | Context Diagram v<n> · Use Case Diagram v<n> · Sequence: `SD-UC-05` · Architecture/ADR used · W1 rows |
 | Trigger | Hospital Staff decides to log a surgical schedule or a periodic transfusion plan with its blood demand |
 | Preconditions | Hospital Staff is logged in with a hospital account (UC-06) |
 | Success end state | The surgical schedule / transfusion plan is saved as an input for the blood forecast, and Hospital Staff has seen a confirmation |
 | Failure end state(s) | None in the current flow: invalid data loops back to re-entry until the data is valid (see Open question 2) |
-| FRs covered | `FR-05-xx` [NEEDS CLARIFICATION: list from W1] |
+| FRs covered | `FR-03-01` |
 | Business rules applied | `BR-xx` [NEEDS CLARIFICATION: validation rules for date, blood type, units, patients, cycle] |
 | Version / status | v0.1 · Draft |
 | Author | <member> |
@@ -29,15 +29,15 @@ swimlane-beta TB
     a4("See confirmation")
     stop1@{ shape: fr-circ }
   end
-  subgraph SYS["Hospital Blood Mgmt Portal"]
+  subgraph SYS["NBSP"]
     m1{" "}
-    s1("Validate input data (FR-05-xx)")
+    s1("Validate input data (FR-03-01)")
     q1@{ shape: text, label: "Data valid?" }
     d1{" "}
-    s2("Show error and request re-entry (FR-05-xx)")
-    s3("Save plan as forecasting input (FR-05-xx)")
+    s2("Show error and request re-entry (FR-03-01)")
+    s3("Save plan as forecasting input (FR-03-01)")
     o1["Plan [Saved]"]
-    s4("Show confirmation (FR-05-xx)")
+    s4("Show confirmation (FR-03-01)")
   end
   start --> a1 --> a2 --> m1 --> s1 --> d1
   q1 ~~~ d1
@@ -57,11 +57,11 @@ Reading notes:
 
 | Node | Kind | Text | Traces to |
 |---|---|---|---|
-| s1 | Action | Validate input data | FR-05-xx |
-| d1 | Decision | Data valid? (question drawn outside the diamond as text node q1) | FR-05-xx / BR-xx |
-| s2 | Action | Show error and request re-entry | FR-05-xx |
-| s3 | Action | Save plan as forecasting input | FR-05-xx |
-| s4 | Action | Show confirmation | FR-05-xx |
+| s1 | Action | Validate input data | FR-03-01 |
+| d1 | Decision | Data valid? (question drawn outside the diamond as text node q1) | FR-03-01 / BR-xx |
+| s2 | Action | Show error and request re-entry | FR-03-01 |
+| s3 | Action | Save plan as forecasting input | FR-03-01 |
+| s4 | Action | Show confirmation | FR-03-01 |
 
 ## 3. Branches and acceptance tests
 
@@ -87,10 +87,10 @@ Reading notes:
 
 | # | Question | Blocking? | Default applied |
 |---|---|---|---|
-| 1 | [NEEDS CLARIFICATION: FR IDs, BR IDs, Feature ID and diagram versions are not in the file; the FR-05-xx placeholders must be replaced from W1] | Yes | Placeholders kept |
+| 1 | [NEEDS CLARIFICATION: FR IDs, BR IDs, Feature ID and diagram versions are not in the file; the FR-03-01 placeholders must be replaced from W1] | Yes | Placeholders kept |
 | 2 | [NEEDS CLARIFICATION: can Hospital Staff cancel instead of re-entering after an error? The sequence diagram has no cancel] | No | No cancel; loop until valid |
 | 3 | [NEEDS CLARIFICATION: is "Show updated plan list" (step 8) part of the use case or a screen detail for Lesson 8?] | No | Left out of the diagram |
-| 4 | [NEEDS CLARIFICATION: lane name. The sequence diagram uses "Hospital Blood Mgmt Portal"; confirm it matches the system name on the Context Diagram] | No | Name from `SD-UC-05` |
+| 4 | [NEEDS CLARIFICATION: lane name. The sequence diagram uses "NBSP"; confirm it matches the system name on the Context Diagram] | No | Name from `SD-UC-05` |
 | 5 | [NEEDS CLARIFICATION: validation rules (past dates, maximum units, allowed cycle values)] | No | Not stated in the diagram |
 
 ## 7. Verification log

@@ -12,8 +12,8 @@
 | Preconditions | Hospital Staff is signed in (assumed; UC-06 / FR-04-01). The shipment was dispatched (FR-01-03). |
 | Success end state | The request is Received and the received units are in the hospital inventory. |
 | Failure end state(s) | The shipment is not Dispatched: the confirmation is rejected, nothing changes (proposed, Q1). |
-| FRs covered | `FR-01-05` |
-| Business rules applied | none |
+| FRs covered | `FR-01-05` · `FR-01-07` |
+| Business rules applied | BR-03 (confirm only a Dispatched shipment, only once) |
 | Version / status | v0.1 · Draft |
 | Author | <owner of F-01, W0 Table 2> |
 
@@ -30,7 +30,7 @@ swimlane-beta TB
     s1("Mark request Received (FR-01-05)")
     o1["Blood request [Received]"]
     s2("Add received units to hospital inventory (FR-01-05)")
-    s3("Reject confirmation and state that the shipment is not Dispatched (FR-01-05 proposed)")
+    s3("Reject confirmation and state that the shipment is not Dispatched (FR-01-07)")
     stop1@{ shape: fr-circ }
   end
   start --> a1 --> d1
@@ -40,7 +40,7 @@ swimlane-beta TB
 
 Reading notes:
 
-- **The `[not dispatched]` branch is a proposal, not an approved requirement.** FR-01-05 says only what happens for a dispatched shipment. The rejection is drawn as option A of Q1. The row FR-01-05 in W1 needs this IF clause (EARS): *IF the shipment is not in Dispatched status, the system SHALL reject the confirmation and SHALL change neither the request nor the hospital inventory.*
+- **The `[not dispatched]` branch is now approved as FR-01-07 (W1).** Earlier note: FR-01-05 says only what happens for a dispatched shipment. The rejection is drawn as option A of Q1. The row FR-01-05 in W1 needs this IF clause (EARS): *IF the shipment is not in Dispatched status, the system SHALL reject the confirmation and SHALL change neither the request nor the hospital inventory.*
 - Marking Received and adding units are drawn in sequence, not as a fork, because they must succeed or fail together. Whether they run as one atomic operation is a design matter and is not shown here.
 - The main reason for the decision is protecting the inventory: a second confirmation must not add the same units twice.
 
@@ -52,7 +52,7 @@ Reading notes:
 | s1 | Action | Mark request Received | FR-01-05 |
 | o1 | Object node | Blood request [Received] | FR-01-05 |
 | s2 | Action | Add received units to hospital inventory | FR-01-05 |
-| s3 | Action | Reject confirmation and state that the shipment is not Dispatched | FR-01-05, proposed IF clause (Q1) |
+| s3 | Action | Reject confirmation and state that the shipment is not Dispatched | FR-01-07 |
 
 ## 3. Branches and acceptance tests
 
@@ -80,7 +80,7 @@ Values in these rows are examples.
 | # | Question | Blocking? | Default applied |
 |---|---|---|---|
 | 1 | [NEEDS CLARIFICATION: What happens when the shipment is not in Dispatched status, for example a second confirmation of an already Received request? Reject with a reason, or show the current status without an error? FR-01-05 must be revised to add this IF clause.] | No | Option A: reject with a reason, change nothing (drawn in section 1), pending confirmation. |
-| 2 | [NEEDS CLARIFICATION: Can Hospital Staff confirm only some of the assigned units, for example when some units arrive damaged or missing?] | No | All assigned units are treated as received. |
+| 2 | [NEEDS CLARIFICATION: Can Hospital Staff confirm only some of the assigned units, for example when some units arrive damaged or missing?] | No | RESOLVED 18/11 (D-10): whole shipment only; damaged or missing units are recorded through UC-04 as Discarded with reason "Damaged on arrival" or "Missing on arrival". |
 
 ## 7. Verification log
 

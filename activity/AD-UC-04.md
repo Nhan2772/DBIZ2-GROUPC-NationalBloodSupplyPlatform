@@ -12,8 +12,8 @@
 | Preconditions | Hospital Staff is signed in (assumed; UC-06 / FR-04-01). The hospital holds an inventory of that blood type. |
 | Success end state | Units are deducted from the hospital inventory and the transaction is in the usage history. |
 | Failure end state(s) | None in this flow: a record that is invalid or exceeds the inventory is rejected with a reason and the flow returns to the check until the record is accepted. Abandoning the record is not modeled (no FR covers it). |
-| FRs covered | `FR-02-01` |
-| Business rules applied | proposed: deduct units with the earliest expiry date first (BR-xx to be assigned, Q3); the rule defining a valid record is still missing (Q2) |
+| FRs covered | `FR-02-01` · `FR-02-06` |
+| Business rules applied | BR-09 (FEFO: deduct hospital lots earliest expiry first, for Used and Discarded) |
 | Version / status | v0.2 · Draft |
 | Author | <owner of F-02, W0 Table 2> |
 
@@ -29,7 +29,7 @@ swimlane-beta TB
   subgraph SYS["NBSP"]
     m1{" "}
     d1{"Record valid and enough units in inventory?"}
-    s3("Reject record and show the reason (FR-02-01)")
+    s3("Reject record and show the reason (FR-02-06)")
     s1("Deduct units from hospital inventory (FR-02-01)")
     s2("Append transaction to usage history (FR-02-01)")
     stop1@{ shape: fr-circ }
@@ -41,7 +41,7 @@ swimlane-beta TB
 
 Reading notes:
 
-- **The rejection branch is a proposal, not an approved requirement.** FR-02-01 has no IF clause. The decision `d1` exists because a record can be incomplete or ask for more units than the hospital holds. The loop is drawn as option B of Q1. The row FR-02-01 in W1 needs this IF clause (EARS): *IF the record is incomplete or the quantity exceeds the hospital inventory, the system SHALL change nothing, SHALL show the reason, and Hospital Staff SHALL be able to correct and resubmit.*
+- **The rejection branch is now approved as FR-02-06 (W1).** Earlier note: FR-02-01 has no IF clause. The decision `d1` exists because a record can be incomplete or ask for more units than the hospital holds. The loop is drawn as option B of Q1. The row FR-02-01 in W1 needs this IF clause (EARS): *IF the record is incomplete or the quantity exceeds the hospital inventory, the system SHALL change nothing, SHALL show the reason, and Hospital Staff SHALL be able to correct and resubmit.*
 - `m1` is a merge. The first submission and every resubmission enter the check through it.
 - **Deduction order is a proposed business rule (Q3):** units with the earliest expiry date are deducted first. FR-02-01 does not say this today, so BR-xx must be added to the business rules and linked to the row FR-02-01. Suggested wording: *The system SHALL deduct units in order of earliest expiry date.*
 - Used and discarded follow the same flow: both deduct units and append history; only the recorded status differs.
@@ -53,8 +53,8 @@ Reading notes:
 |---|---|---|---|
 | m1 | Merge | (first submission or resubmission) | none (control node) |
 | d1 | Decision | Record valid and enough units in inventory? | proposed IF clause (Q1); BR to be added (Q2) |
-| s3 | Action | Reject record and show the reason | FR-02-01, proposed IF clause (Q1) |
-| s1 | Action | Deduct units from hospital inventory, earliest expiry first | FR-02-01; BR-xx proposed (Q3) |
+| s3 | Action | Reject record and show the reason | FR-02-06 |
+| s1 | Action | Deduct units from hospital inventory, earliest expiry first | FR-02-01; BR-09 |
 | s2 | Action | Append transaction to usage history | FR-02-01 |
 
 ## 3. Branches and acceptance tests
@@ -84,7 +84,7 @@ Values in these rows are examples. Replace them when Q2 is answered.
 |---|---|---|---|
 | 1 | [NEEDS CLARIFICATION: Confirm the handling chosen by the team: when the recorded quantity exceeds the hospital inventory or a required field is missing, the system rejects with a reason and Hospital Staff can correct and resubmit. FR-02-01 must be revised to add this IF clause.] | No | Option B, chosen by the team (drawn in section 1); pending confirmation by the lecturer. |
 | 2 | [NEEDS CLARIFICATION: Which values make a record valid? Allowed values of blood type, quantity (whole number, minimum 1?), status (Used, Discarded only?), and is the reason mandatory, free text or from a list?] | Yes | None. Test values in section 3 are examples only. |
-| 3 | [NEEDS CLARIFICATION: Confirm that units with the earliest expiry date are deducted first, and that this also applies to records with status Discarded.] | No | Earliest expiry first for both Used and Discarded, chosen by the team; BR-xx to be added. |
+| 3 | [NEEDS CLARIFICATION: Confirm that units with the earliest expiry date are deducted first, and that this also applies to records with status Discarded.] | No | RESOLVED 18/11 (D-07, D-13): BR-09, earliest expiry first for Used and Discarded; inventory is kept per lot. |
 
 ## 7. Verification log
 

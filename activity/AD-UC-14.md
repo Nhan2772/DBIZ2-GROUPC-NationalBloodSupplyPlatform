@@ -1,115 +1,107 @@
-# **Activity Diagram: AD-UC-14 Respond to Data Verification Request**
+# Activity Diagram: AD-UC-14 Respond to Data Verification Request
 
 | Field | Value |
-| :---- | :---- |
-| AD ID | AD-UC-14 |
-| Use case | UC-14 Respond to Data Verification Request |
-| Feature | F-03 \<feature name, confirm in W0 Table 2\> (function list ID FL:F-14) |
+|---|---|
+| AD ID | `AD-UC-14` |
+| Use case | `UC-14 Respond to Data Verification Request` (extends UC-13) |
+| Feature | `F-03 Clinical Demand & Forecasting` (W0 Table 2) |
 | Primary actor | Hospital Staff |
-| Lanes | Hospital Staff · NBSP (name taken from the workbook, confirm against the Context Diagram) · no external systems |
-| Inputs (L3-L5) | Context Diagram v\<n\> · Use Case Diagram v\<n\> (UC-14 «extend» UC-13) · Sequence: SD-UC-14 · Architecture/ADR: not used · W1 rows: FR-03-04 |
-| Trigger | Hospital Staff submits a confirmation or correction for a data verification request (FR-03-04). |
-| Preconditions | Hospital Staff is signed in (assumed; UC-06). The Forecasting Analyst has requested verification (UC-13 / FR-03-03). The request belongs to that hospital (assumed). |
-| Success end state | The response is saved, the request is marked Answered and the NBC Forecasting Analyst is notified (to confirm, see Q1). |
-| Failure end state(s) | The response is incomplete: an error is shown and the request stays Open, see Q2. |
-| FRs covered | FR-03-04 |
-| Business rules applied | none (the workbook lists no BR rows) |
-| Version / status | v0.2 · Draft |
+| Lanes | Hospital Staff · NBSP · NBC Forecasting Analyst |
+| Inputs | Use Case Diagram · Sequence: `SD-UC-14` · W1 rows FR-03-04, FR-04-04 · Decision log D-20, D-22, D-23 |
+| Trigger | (a) Hospital Staff opens a verification request from the in-app badge or the email link (D-20). (b) Time: the configured response deadline passes. |
+| Preconditions | Hospital Staff is signed in (UC-06). The Analyst has requested verification (UC-13, FR-03-03). The request belongs to that hospital (FR-04-03). The request is Open. |
+| Success end state | The response and change history are saved, the request is Responded and the Analyst is notified. |
+| Failure end state(s) | (a) A correction or supplement has no value or note: nothing is saved, the request stays Open. (b) The deadline passes without a response: the request is Overdue and the Analyst is notified. |
+| FRs covered | `FR-03-04` · `FR-04-04` |
+| Business rules applied | none with a BR ID (deadline is configuration, D-19) |
+| Version / status | v1.0 · Draft (18/11/2026: redrawn from W1 FR-03-04 and SD-UC-14; replaces v0.2 drawn from a cut-off screenshot) |
 
-## 
+## 1. Diagram
 
-## 
-
-## **1\. Diagram**
-
+```mermaid
 swimlane-beta TB
-
-  subgraph HS\["Hospital Staff"\]
-
+  subgraph HS["Hospital Staff"]
     start@{ shape: sm-circ }
-
-    a1("Open a data verification request")
-
-    a2("Review the flagged records")
-
-    a3("Submit a confirmation or a correction with a note")
-
+    a1("Open the verification request")
+    a2("Review the flagged record, reason and analyst note")
+    d1{"Response type?"}
+    a3("Confirm the data is correct")
+    a4("Enter the corrected value and a note")
+    a5("Enter additional information")
+    m2{" "}
   end
-
-  subgraph SYS\["NBSP"\]
-
-    d1{"Response complete?"}
-
-    s1("Save the response and mark the request as Answered (FR-03-04)")
-
-    s2("Notify the NBC Forecasting Analyst (FR-03-04)")
-
-    s3("Show an error: required information is missing; the request stays Open (FR-03-04)")
-
+  subgraph SYS["NBSP"]
+    m1{" "}
+    s0("Show the flagged record, reason and analyst note (FR-03-04)")
+    d2{"Response complete?"}
+    s1("Show what is missing; request stays Open (FR-03-04)")
+    s2("Save the response and change history; set the request Responded (FR-03-04, FR-04-04)")
+    o1["Verification request [Responded]"]
+    s3("Notify the Analyst (FR-03-04, D-20)")
+    t1@{ shape: hourglass }
+    s4("Set the request Overdue and notify the Analyst (FR-03-04)")
+    o2["Verification request [Overdue]"]
     stop1@{ shape: fr-circ }
-
+    x1@{ shape: cross-circ }
   end
+  subgraph ANA["NBC Forecasting Analyst"]
+    n1("Review the response in UC-13")
+    n2("Decide on the overdue record in UC-13")
+  end
+  start --> a1 --> s0 --> a2 --> m1 --> d1
+  d1 -->|"[confirm]"| a3 --> m2
+  d1 -->|"[correct]"| a4 --> m2
+  d1 -->|"[supplement]"| a5 --> m2
+  m2 --> d2
+  d2 -->|"[incomplete]"| s1 --> m1
+  d2 -->|"[complete]"| s2 --> o1 --> s3 --> n1 --> stop1
+  t1 -->|"deadline passed, request still Open"| s4 --> o2 --> n2 --> x1
+```
 
-  start \--\> a1 \--\> a2 \--\> a3 \--\> d1
+Reading notes:
 
-  d1 \--\>\|"\[complete\]"\| s1 \--\> s2 \--\> stop1
+- The deadline branch (t1) is a separate time event; it only fires while the request is still Open, and it ends its own branch (flow final).
+- One request concerns one flagged record (UC-13 handles records one at a time).
+- After a correction, the Analyst still decides in UC-13 whether to accept or exclude the record; UC-14 does not change the record status.
 
-  d1 \--\>\|"\[else\]"\| s3 \--\> stop1
-
-## **2\. Node trace**
+## 2. Node trace
 
 | Node | Kind | Text | Traces to |
-| ----- | ----- | ----- | ----- |
-| a3 | Action | Submit a confirmation or a correction with a note | FR-03-04 (WHEN condition) |
-| d1 | Decision | Response complete? | FR-03-04, to confirm, see Q2 |
-| s1 | Action | Save the response and mark the request as Answered | FR-03-04, to confirm, see Q1 |
-| s2 | Action | Notify the NBC Forecasting Analyst | FR-03-04, to confirm, see Q1 |
-| s3 | Action | Show an error: required information is missing; the request stays Open | none, see Q2 |
+|---|---|---|---|
+| s0 | Action | Show the flagged record, reason and analyst note | FR-03-04 |
+| d1 | Decision (hospital) | Response type? | FR-03-04 (confirm, correct, supplement) |
+| d2 | Decision | Response complete? | FR-03-04 |
+| s1 | Action | Show what is missing; request stays Open | FR-03-04 |
+| s2 | Action | Save the response and change history; set Responded | FR-03-04, FR-04-04 |
+| s3 | Action | Notify the Analyst | FR-03-04, D-20 |
+| t1 | Time event | Deadline passed | FR-03-04 (IF clause) |
+| s4 | Action | Set the request Overdue and notify the Analyst | FR-03-04 |
 
-## **3\. Branches and acceptance tests**
+## 3. Branches and acceptance tests
 
 | Branch | Given | When | Then |
-| ----- | ----- | ----- | ----- |
-| d1 \[complete\] | A verification request has status Open and flags 2 records (example values) | Hospital Staff confirms one record, corrects the other with a value and a note, and submits | The response is saved, the request status is Answered and the Analyst is notified |
-| d1 \[else\] | A verification request has status Open | Hospital Staff submits a correction without a value | An error is shown, the request stays Open and nothing is saved |
+|---|---|---|---|
+| d1 [confirm] | Request Open for the 04 Oct O+ record flagged "Spike" | Staff confirms the value is correct | Request Responded; history saved; Analyst notified |
+| d1 [correct] | Same request | Staff enters 14 instead of 40 with note "typing error" | Corrected value and history saved; request Responded; Analyst notified |
+| d1 [supplement] | Same request | Staff adds "mass-casualty case on 04 Oct" | Information saved; request Responded; Analyst notified |
+| d2 [incomplete] | Same request | Staff chooses Correct but leaves the value empty | Missing value shown; nothing saved; request stays Open |
+| t1 | Request sent 10 Oct, deadline 14 Oct, no response | 14 Oct passes | Request Overdue; Analyst notified |
 
-## **4\. Object states used**
+## 4. Object states used
 
-| Object | States in this diagram | Full state list (all diagrams) |
-| ----- | ----- | ----- |
-| Verification request | Open → Answered | Open, Answered (assumed, see Q3) |
+| Object | States in this diagram | Full state list |
+|---|---|---|
+| Verification request | Open, Responded, Overdue | Open, Responded, Overdue (decision log D-23) |
 
-## **5\. Screens touched**
+## 5. Screens touched
 
 | Actor action | Screen ID |
-| ----- | ----- |
-| Open a data verification request |  |
-| Review the flagged records |  |
-| Submit the response |  |
+|---|---|
+| Open, review and respond | S-F03-03 |
 
-## 
+## 6. Open questions
 
-## 
-
-## **6\. Open questions**
-
-| \# | Question | Blocking? | Default applied |
-| ----- | ----- | ----- | ----- |
-| Q1 | \[NEEDS CLARIFICATION: FR-03-04 is cut off in the screenshot. What is the third option after "confirmation, correction or ..."? What exactly does the system SHALL do after submission (save, change status, notify the Analyst)?\] | No | Save, mark Answered, notify the Analyst. |
-| Q2 | \[NEEDS CLARIFICATION: Does FR-03-04 define a validation of the response, and which fields are required?\] | No | A corrected value is required when the data is not confirmed. |
-| Q3 | \[NEEDS CLARIFICATION: Is Answered the only closing status, or can a request also be Expired or Cancelled?\] | No | Only Open and Answered are used. |
-
-## **7\. Verification log**
-
-| Check | Result | By | Date |
-| ----- | ----- | ----- | ----- |
-|  |  |  |  |
-| Every decision has guards on all outgoing flows, no overlap, no gap |  |  | 2026-10-25 |
-| No action has two incoming flows (merge used instead) |  |  | 2026-10-25 |
-| Every fork has a matching join |  |  | 2026-10-25 |
-| Every system action cites an FR |  |  | 2026-10-25 |
-| Every FR of this use case appears in the diagram |  |  | 2026-10-25 |
-| Lane names match the Context Diagram and the use case actors; no Web App, API or database lanes |  |  | 2026-10-25 |
-| Related sequence diagram uses the same names and FR IDs; its alt fragments appear here as decisions |  |  |  |
-| AI critic prompt run, findings resolved or logged as open questions |  |  |  |
-
+| # | Question | Blocking? | Default applied |
+|---|---|---|---|
+| 1 | What response deadline does the hospital receive? | No (W5 Q2) | Configurable (D-19) |
+| 2 | Can the hospital still respond after the request is Overdue? | No | No: the Analyst decides in UC-13 |

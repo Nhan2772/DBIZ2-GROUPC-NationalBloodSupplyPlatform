@@ -1,11 +1,5 @@
 # UI Conventions — NBSP
 
-> **DBIZ2 — Group C · Proposal v2.1 · 21/11/2026** (v2.0 of 17/11/2026 aligned with `usage-flow.md` v2.3 and the decisions of 21/11/2026)  
-> **Scope:** the whole National Blood Supply Chain Platform (NBSP), for its four actors: Hospital Staff, NBC Blood Storage and Distribution Department, NBC Forecasting Analyst and NBC Operations.  
-> **Target device:** **Desktop — standard design frame 1440 × 1024 px (width × height)**.  
-> **UI language:** **Vietnamese**. This document is written in English, but every user-facing text it quotes (labels, buttons, messages) is the Vietnamese UI copy and stays in Vietnamese. Business codes, system names and necessary technical terms are kept as they are.  
-> **Document status:** shared conventions for wireframes and implementation. Items marked **Proposed** or **To confirm** are not new functional requirements.
-
 ## 0. Scope, references and general principles
 
 These conventions apply to the **13 screens** in `screen-list.md`, to the flows of the **4 actors** in `usage-flow.md`, and to the UI states that appear in the related use cases. Do not create a new screen just because a message, a status, a confirmation dialog or a background task appears.

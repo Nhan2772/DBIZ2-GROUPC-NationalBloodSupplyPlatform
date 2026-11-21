@@ -1,11 +1,5 @@
 # Screen List: NBSP (National Blood Supply Chain Platform)
- 
-> DBIZ2 Group C. DRAFT proposal: screens are inferred from the 17 use cases in W0 Table 1 and the
-> functions in W1. Priorities are the "Effective priority" in W4 at the time of writing. Confirm
-> every row against the Use Case Diagram, the sequence diagrams and the team's usage flows.
-> Updated 20/11/2026 for `usage-flow.md` v2.3: Hospital Staff Flow 2 now covers both UC-04 and UC-05
-> ("Record blood usage and planned blood demand"), so S-F02-01 and S-F03-01 link to each other after saving.
-> Updated 21/11/2026: modal "Confirm approve & dispatch" added to the table of modals (AD-UC-08 v0.6, S-F01-04 v2.2).
+
  
 Screen ID pattern: `S-<feature>-<nn>`. Screen spec path pattern: `screens/s-fxx-nn/screen-spec-s-fxx-nn.md`, images in `screens/s-fxx-nn/img/`; a path in the table whose file does not exist yet is the planned location. The ID takes the feature that owns the use case, even when
 two actors share the screen. `S-F00-<nn>` is kept for a screen that belongs to no feature (none yet).

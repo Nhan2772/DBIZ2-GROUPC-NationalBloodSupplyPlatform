@@ -25,7 +25,7 @@ Lesson 5 (block W4). Cut by lowering priority, never by lowering estimates. Ever
 | F-02 | FR-02-03 | View near-expiry blood units | Should | Could | R3: the Dept already sees expiry dates in the Blood Management Software, so nobody would notice its absence in the first month. | 11.8 | 3.240.000 |
 | F-02 | FR-02-04 | Receive below-threshold alert | Must | Could | R3: the Dept already sees NBC stock in the Blood Management Software; the alert only saves checking time. | 8.8 | 2.440.000 |
 | F-02 | FR-02-05 | Synchronise NBC inventory from Blood Management Software | Must | Must |  | 12.6 | 3.780.000 |
-| F-02 | FR-02-07 | Record opening balance and stock adjustment | Should | Should | R2 (new in v2, D-14): workaround is an onboarding import script run by the project team. | 5.4 | 1.420.000 |
+| F-02 | FR-02-07 | Record hospital opening inventory balance | Should | Should | R2 (new in v2, D-14): workaround is an onboarding import script run by the project team. | 5.4 | 1.420.000 |
 | F-02 | FR-02-06 | Reject invalid or excessive blood usage record with reasons | Must | Should | R2: hospital staff check quantities before saving; the database also refuses a negative lot quantity, so inventory cannot go below zero. | 5.4 | 1.420.000 |
 | F-03 | FR-03-01 | Log scheduled or periodic blood demand | Must | Could | R3 (v2, D-25): the first forecast runs on usage records and dispatch history; scheduled demand improves it later. | 10.8 | 2.840.000 |
 | F-03 | FR-03-02 | Review clinical demand data and anomaly flags | Must | Should | R2: the analyst can review demand data in a spreadsheet outside the system in the first release. | 17.6 | 4.880.000 |
@@ -43,4 +43,3 @@ Lesson 5 (block W4). Cut by lowering priority, never by lowering estimates. Ever
 
 v2 totals: Must 162.2 h (58.8%) · Should 55.4 h (20.1%) · Could 58.2 h (21.1%) · total 275.8 h, 76.240.000 VND.
 
-Checked against W1 and W2 (21/11/2026): every row matches the W2 roll-up in person-hours, cost and effective priority, and FR-02-07 is included in the function-point cross-check (EI, 4 FP). No recalculation is pending.

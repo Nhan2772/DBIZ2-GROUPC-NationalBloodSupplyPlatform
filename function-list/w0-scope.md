@@ -76,3 +76,4 @@ The data group names are the names Screen Specs use as data sources.
 | BR-07 | A forecast is published only after the NBC Forecasting Analyst approves it. A rejected forecast is not published. |
 | BR-08 | A demand record whose verification request is still unanswered at the forecast cut-off is excluded from the forecast. |
 | BR-09 | Units are used earliest expiry first (FEFO): NBSP pre-selects eligible units by earliest expiry when the Dept dispatches (the Dept can change the selection), and deducts hospital lots by earliest expiry when usage is recorded. |
+| BR-10 | A blood request also needs: a needed-by date and time (dd/MM/yyyy HH:mm, Vietnam time UTC+07:00) that is not in the past; a contact name (1 to 100 characters); a contact phone of 10 or 11 digits starting with 0 (spaces and dots ignored). The reason is optional, at most 500 characters. A missing or invalid value means no request is created. |

@@ -27,7 +27,7 @@ Applies [decision-log.md](decision-log.md) v1.0. Part A lists naming and referen
 
 | # | File | Change | Decision |
 |---|---|---|---|
-| B1 | W0 BR-01, BR-02, BR-05; new BR-09 | Product type required; urgency = Emergency, Urgent, Routine; Not approved state; FEFO rule | D-04, D-07, D-08, D-12 |
+| B1 | W0 BR-01, BR-02, BR-05; new BR-09 | Product type required; urgency = Emergency, Urgent, Periodic; Not approved state; FEFO rule | D-04, D-07, D-08, D-12 |
 | B2 | W0 Table 3 | New Won't-have rows: hospital cancellation, products other than red cells, hospital-level alerts; list of configurable values | D-06, D-12, D-18, D-19 |
 | B3 | W1 FR-01-03 | EARS adds FEFO pre-selection, idempotency key, "no longer valid" rejection, timeout, release of reservation | D-07, D-09 |
 | B4 | W1 FR-01-04 | "approved or dispatched" → "dispatched" | D-11 |

@@ -36,6 +36,6 @@ Business decisions are recorded in [the decision log](decision-log.md).
 |---|---|---|
 | Vu Thanh Nhan | Project manager | TBD |
 | Nguyen Minh Anh | TBD | TBD |
-| Dao Bich Hang | Schedule manager | "CVCA/ Context diagram, Check UC Lists ,Sequence UC08, UC-09, UC-10, Check Function List & Cost: FR-02-01 to FR-02-05, FR-04-04, Check capital calculations, s-f02-02 (Inventory Dashboard),s-f02-03 (Near Expiry Units), SD-UC-08,SD-UC-09,SD-UC-10, activity index, w5-handover |
+| Dao Bich Hang | Schedule manager | CVCA/ Context diagram,Sequence UC08, UC-09, UC-10, Check Function List & Cost: FR-02-01 to FR-02-05, FR-04-04, Check capital calculations, s-f02-02 (Inventory Dashboard),s-f02-03 (Near Expiry Units), activity index, w5-handover |
 | Phung Duc Minh | TBD | TBD |
 | Le Thanh Nga | TBD | TBD |

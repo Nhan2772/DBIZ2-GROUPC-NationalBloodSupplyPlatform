@@ -1,8 +1,5 @@
 # NBSP — National Blood Supply Chain Platform
 
-> **DBIZ2 · Group C · Design and requirements handover**  
-> Course: Digital Business Project II (DBIZ2), with subsequent implementation planned in DBIZ3.  
-> **Repository status:** design documentation; no application source code or automated tests are present in the repository at the time of this review (22 November 2026).
 
 **NBSP** connects the National Blood Center (NBC) with receiving hospitals to manage blood requests, dispatch and receipt, hospital blood usage, inventory visibility, and demand forecasting. It uses the existing **Blood Management Software (BMS)** as an external inventory source rather than replacing it.
 

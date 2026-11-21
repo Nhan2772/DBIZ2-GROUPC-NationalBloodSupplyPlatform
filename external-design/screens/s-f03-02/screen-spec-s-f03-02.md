@@ -9,11 +9,11 @@
 | Feature | F-03 Clinical Demand & Forecasting |
 | Use cases / FRs | UC-13 · FR-03-02, FR-03-03; related FR-03-04, FR-03-08, FR-04-03, FR-04-04 |
 | Activity / Sequence | [`AD-UC-13`](../../../activity/AD-UC-13.md) · [`SD-UC-13`](../../../use-case/SD-UC-13.md) |
-| Usage Flow | NBC Forecasting Analyst Flow 1, [`usage-flow-total.md`](../../usage-flow/usage-flow-total.md) |
+| Usage Flow | NBC Forecasting Analyst Flow 1, [`usage-flow.md`](../usage-flow.md) |
 | Frame size | **1440 × 1024 px**, desktop, 1× (no mobile mockup) |
 | Mockup images | `img/s-f03-02-{default,empty,loading,error,success}.png` and each corresponding `-numbered.png` (10 PNG) |
 | Design reference | **Canonical screen `external-design/screens/s-f01-01`** (same outer layout); project UI Conventions v2.0 |
-| Version | v3.0 · 21/11/2026 |
+| Version | v3.1 · 21/11/2026 |
 | Status | Draft — pending group review |
 
 ## 1. Purpose
@@ -48,7 +48,7 @@
 | **Error** | [`img/s-f03-02-error.png`](img/s-f03-02-error.png) |
 | **Success** | [`img/s-f03-02-success.png`](img/s-f03-02-success.png) |
 
-All UI labels are Vietnamese. The output is a **1440 × 1024 px desktop image**, using the tokens in [UI Conventions v2.0](../../NBSP_UI_Conventions_Project_Wide_VI_v2.0.md). Representative values are test data, not real hospital records or new business thresholds.
+All UI labels are Vietnamese. The output is a **1440 × 1024 px desktop image**, using the tokens in [UI Conventions v2.0](../../ui-conventions.md). Representative values are test data, not real hospital records or new business thresholds.
 
 ## 3. Element inventory
 
@@ -60,7 +60,7 @@ Every number refers to a visible element or UI group; English terms in the spec 
 |---:|---|---|---|---|---|
 | 1 | Brand | Logo + text | `NBSP`; “Chuỗi cung ứng máu” | Yes | Exact structure/position as S-F01-01; no actor-specific rebranding. |
 | 2 | Menu for Forecasting Analyst | Role-based navigation | “Rà soát dữ liệu nhu cầu”, “Xem xét & duyệt dự báo”; active item highlighted | Yes | Only screens authorised to Analyst are displayed (FR-04-03). |
-| 3 | Account header | Read-only session text | `nbc_unit.name`; role “Chuyên viên phân tích dự báo” | Yes | No unrelated account or simulated personal name. |
+| 3 | Account header | Read-only session text | NBC unit/account display name from the authenticated session (exact API field pending); role “Chuyên viên phân tích dự báo” | Yes | No unrelated account or simulated personal name. |
 | 4 | Đăng xuất | Secondary button | Static action label | Yes | Ends session; navigates to `S-F04-01`. |
 | 5 | Breadcrumb | Read-only navigation context | “Dự báo và dữ liệu / [Tên màn hình]” | Yes | Text contextual only; does not create a new screen/route. |
 | 6 | Page title | Heading | Screen title in Vietnamese | Yes | Must equal UI Conventions and Screen List. |
@@ -80,13 +80,13 @@ Every number refers to a visible element or UI group; English terms in the spec 
 | 15 | Dòng đang chọn | Selected table row | `record.id`, highlighted first row with “Xem” action | If selected | Panel must reference exactly this record; highlight uses green bar + background. |
 | 16 | Phân trang | Pagination | Current page, total records | If multiple records | Shown 1–5/24 only as mock data; number of rows configurable. |
 | 17 | Chi tiết bản ghi | Support card | Record context: hospital, day, blood group | Yes | Right card reuses form/card style of S-F01-01. |
-| 18 | Trạng thái bản ghi | Status chip | `flagged` / `Overdue` / `Pending Verification` | If record | Always text + colour; not a new database status. |
+| 18 | Trạng thái bản ghi | Status chip | UI anomaly flag / request `Overdue` / record `Pending Verification` | If record | Distinguish the anomaly flag, the verification-request Overdue state and the demand-record Pending Verification state; do not combine them into one database status. |
 | 19 | Các chỉ số bản ghi | Read-only key/value | Hospital, blood group, used units, patient count, planned demand | If selected | Must match selected `record.id`. |
 | 20 | Lý do cần xem xét | Warning notice | `flag_reason` or overdue explanation supplied by system | If flagged | Does not invent anomaly threshold. |
 | 21 | Ghi chú quyết định | Textarea | `decision.note` | Conditional | Required for Overdue acceptance; otherwise per W1. |
 | 22 | Chấp nhận bản ghi | Primary button | `decision.action=accept` | If eligible | Overdue branch requires non-empty note; no save when validation fails. |
 | 23 | Loại khỏi dự báo | Secondary button | `decision.action=exclude` | If eligible | Store Excluded + audit; no automatic forecast publish. |
-| 24 | Yêu cầu xác minh | Secondary button | `decision.action=request_verification` | If eligible | Create request, mark Pending Verification and notify Hospital. |
+| 24 | Yêu cầu xác minh | Secondary button | `decision.action=request_verification` | If eligible | Create request, mark Pending Verification and notify Hospital via the verification email; prevent duplicate requests while one is pending (if enforced by backend; not a new state). |
 
 ### 3.3. State-specific elements
 
@@ -109,7 +109,7 @@ Every number refers to a visible element or UI group; English terms in the spec 
 | **Error** | Right panel shows overdue verification, missing-note banner and inline error. Existing values and selected row are preserved. | Analyst attempts Accept on Overdue without a note. No decision is stored. |
 | **Success** | Right panel shows verified creation of a verification request; selected record shows “Đang chờ xác minh”. | Server records request and reports success; Hospital response is still outstanding. |
 
-**Other supported behaviours not illustrated as separate PNGs:** Accepted/Excluded confirmation messages, verification response review, uncertain network result, and deadline/cut-off background rule. Each uses this same Screen ID and is described in AD/SD.
+**Other supported behaviours not illustrated as separate PNGs:** Non-empty result sets with no flagged rows (read-only, no decision), Accepted/Excluded confirmation messages, a hospital response returning an item for analyst re-review, uncertain network outcome, and the background deadline/cut-off rule. A Pending Verification record cannot be presented as Accepted merely because the email was sent. Each uses this same Screen ID and is described in AD/SD.
 
 ## 5. Interactions and navigation
 
@@ -138,6 +138,7 @@ Every number refers to a visible element or UI group; English terms in the spec 
 | SR-13-06 | Save action, actor, timestamp and prior/next values in audit log. | FR-04-04 |
 | SR-13-07 | Closing a period / generating Draft happens in background, not through UC-13 screen. | FR-03-08, FR-03-05 |
 | SR-13-08 | Error/Loading/Success are UI states, not new business-object statuses. | UI Conventions §3 |
+| SR-13-09 | If the selected scope has data but **no flagged records**, show ordinary records without validation actions; this is not the Empty state. | AD-UC-13 d1 (no flagged record) |
 
 ## 7. Linked requirements
 
@@ -158,7 +159,7 @@ Every number refers to a visible element or UI group; English terms in the spec 
 - Each input keeps a persistent label; error messages appear next to related fields and are announced (`role="alert"`), while Success uses `role="status"`.
 - Keyboard order: menu → filters → table → detail → note → actions. Focus visible. Minimum meaningful control contrast and text contrast follow UI Conventions §5.
 
-## 9. Corrections from previous S-F03-02 design
+## 9. Mockup corrections and source consistency
 
 | Issue in earlier file | Correction in this version |
 |---|---|
@@ -175,8 +176,9 @@ Every number refers to a visible element or UI group; English terms in the spec 
 |---|---|---|---|
 | 1 | What precise anomaly rules/thresholds are configured by the client? | Yes | Open; illustrated reason is only an example. |
 | 2 | What deadline applies to a hospital verification request? | No | Open; overdue branch uses system-provided flag. |
-| 3 | What are the backend record IDs, sorting and page-size rules? | No | Open; only proposed presentation in mock. |
-| 4 | Should supplementary light warning/status backgrounds be formalized as UI color tokens? | No | Open; no new business behaviour. |
+| 3 | What are the backend record IDs, precise sorting and page-size rules? | No | Open; only proposed presentation in mock. |
+| 4 | Should supplementary light warning/status backgrounds be formalized as UI color tokens? | No | Open; follow project UI Conventions OQ-08. |
+| 5 | Screen List assigns `Should` to S-F03-02 while W1 marks FR-03-02 and FR-03-03 `Must`. Which priority controls delivery? | Yes for scope planning | Leave Screen List priority unchanged until the team resolves the discrepancy. |
 
 ---
 
@@ -191,7 +193,13 @@ Every number refers to a visible element or UI group; English terms in the spec 
 - [x] Error and Success show server-state distinctions clearly.
 - [ ] Actual anomaly thresholds and deadlines to be agreed before code handoff.
 
-## Changes in v3.0 (21/11/2026)
+## Changes in v3.1 (21/11/2026)
+
+- Corrected the relative Usage Flow link to `../usage-flow.md` and retained the real GitHub source paths.
+- Clarified the separation of anomaly flag, verification-request Overdue and demand-record Pending Verification.
+- Kept UC-13 decisions single-record and UC-14 response / FR-03-08 cut-off asynchronous, per authoritative AD-UC-13 v0.7.
+- Screen priority remains **Should** as in Screen List; the two linked W1 functions are individually **Must**. This project-level prioritisation mismatch must not be silently overwritten.
+
 
 - Rebuilt layout to match group's **S-F01-01** visually; did not import unrelated LabDesk content.
 - Removed analytics-dashboard chrome and independent branding from all five states.

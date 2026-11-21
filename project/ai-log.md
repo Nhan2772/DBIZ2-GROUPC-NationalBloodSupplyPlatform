@@ -1,9 +1,5 @@
 # AI log: where AI suggestions were rejected or corrected — NBSP
 
-> **Project:** National Blood Supply Chain Platform (NBSP) · DBIZ2 Group C  
-> **Purpose:** Project-wide record of AI-generated proposals or deliverables that the team rejected, challenged, or corrected. This is **not** a record of every AI interaction and is **not** an alternative source of business requirements.  
-> **Reference:** [Project brief](project-brief.md) · [Repository guidance](../README.md) · [W0 scope and business rules](../function-list/w0-scope.md) · [UI conventions](../external-design/ui-conventions.md).  
-> **Log compiled:** 22 November 2026. The cases below are drawn from the team's DBIZ2 review discussions; source links point to the **current design rules**, not to an independent archive of those discussions.
 
 Kept for the whole NBSP project. Add **one row only when an AI suggestion is rejected or needs a material correction**, explaining why and how the team handled it. Preserve earlier rows; append future cases after the team reviews them. A correction recorded here does **not** change a requirement or approve a design by itself: the owning W0/W1/AD/SD/Screen Spec/UI Convention must be updated and reviewed separately.
 

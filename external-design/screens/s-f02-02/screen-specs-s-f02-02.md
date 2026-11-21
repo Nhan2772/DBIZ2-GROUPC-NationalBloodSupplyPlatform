@@ -1,4 +1,4 @@
-# Screen Specification — S-F02-02 Inventory dashboard (Tổng quan tồn kho)
+# Screen Specification:S-F02-02 Inventory dashboard 
 
 > DBIZ2 — Group C · NBSP · Draft v0.1 · 21/11/2026
 > Structure follows the Screen Specification template described in the master prompt §7. The reference file `screen-spec-s-f01-01.md` was **not** supplied with this batch, so section order and table formats follow the prompt; align headings with S-F01-01 once it is available (see OQ-17).

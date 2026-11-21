@@ -1,14 +1,15 @@
 # Screen List: NBSP (National Blood Supply Chain Platform)
-
+ 
 > DBIZ2 Group C. DRAFT proposal: screens are inferred from the 17 use cases in W0 Table 1 and the
 > functions in W1. Priorities are the "Effective priority" in W4 at the time of writing. Confirm
 > every row against the Use Case Diagram, the sequence diagrams and the team's usage flows.
 > Updated 20/11/2026 for `usage-flow.md` v2.3: Hospital Staff Flow 2 now covers both UC-04 and UC-05
 > ("Record blood usage and planned blood demand"), so S-F02-01 and S-F03-01 link to each other after saving.
-
+> Updated 21/11/2026: modal "Confirm approve & dispatch" added to the table of modals (AD-UC-08 v0.6, S-F01-04 v2.2).
+ 
 Screen ID pattern: `S-<feature>-<nn>`. Screen spec path pattern: `screens/s-fxx-nn/screen-spec-s-fxx-nn.md`, images in `screens/s-fxx-nn/img/`; a path in the table whose file does not exist yet is the planned location. The ID takes the feature that owns the use case, even when
 two actors share the screen. `S-F00-<nn>` is kept for a screen that belongs to no feature (none yet).
-
+ 
 | Screen ID | Screen name | Actor | Feature | Shown when (purpose) | Entry points | Use cases / FRs served | Priority | Screen spec |
 |---|---|---|---|---|---|---|---|---|
 | S-F04-01 | Sign in | Hospital Staff, NBC Blood Storage and Distribution Department, NBC Forecasting Analyst, NBC Operations | F-04 | First visit, or session expired; hospital and NBC accounts sign in here | Any link while signed out | UC-06, UC-12 · FR-04-01, FR-04-02 | Must | `screens/s-f04-01/screen-spec-s-f04-01.md` |
@@ -24,17 +25,18 @@ two actors share the screen. `S-F00-<nn>` is kept for a screen that belongs to n
 | S-F03-03 | Verification response | Hospital Staff | F-03 | Hospital Staff answers a data-verification request raised by the analyst (Hospital Staff Flow 3) | Link in the verification email; menu | UC-14 · FR-03-04 | Could | `screens/s-f03-03/screen-spec-s-f03-03.md` |
 | S-F03-04 | Forecast review and approval | NBC Forecasting Analyst | F-03 | The analyst checks the draft blood-demand forecast and approves it | Menu (analyst); email that a draft is ready | UC-15 · FR-03-06 | Must | `screens/s-f03-04/screen-spec-s-f03-04.md` |
 | S-F03-05 | Validated forecast | NBC Operations | F-03 | NBC Operations reads the approved forecast | Home after sign in (NBC Operations); menu | UC-16 · FR-03-07 | Must | `screens/s-f03-05/screen-spec-s-f03-05.md` |
-
+ 
 Note on S-F01-02: the request list is not a separate FR. It is counted inside FR-01-04 (W1 FR-01-04-FE, 4 h unchanged; SD-UC-02 "open My Requests and select"). Risk: the 4 h may be short; re-estimate only if the screen spec shows more than a simple list with a status filter.
-
+ 
 ## Modals and overlays
-
+ 
 | Modal | Opened from screen | Purpose |
 |---|---|---|
+| Confirm approve & dispatch | S-F01-04 | Shows the request ID, the number and blood type of the selected units and the ETA, and asks the Dept to confirm; on confirm NBSP reserves the units in the Blood Management Software and sets the request to Dispatched (FR-01-03, AD-UC-08 section 5) |
 | Not approve request | S-F01-04 | Choose the reason (No eligible stock, Request data incorrect, Cancelled by hospital, Other + note) and confirm Not approved (FR-01-09, D-04) |
-
+ 
 ## What is deliberately not a screen
-
+ 
 | Candidate | Why it is not a screen |
 |---|---|
 | "Request submitted" | Success state of S-F01-01 |
@@ -49,3 +51,4 @@ Note on S-F01-02: the request list is not a separate FR. It is counted inside FR
 | Close validation period (FR-03-08) | Triggered at the forecast cut-off, no user interface |
 | Enforce role-based authorisation (FR-04-03) | Cross-cutting rule applied on every screen |
 | Audit trail (FR-04-04) | Recorded in the background; becomes a screen only if the team requires a viewer |
+ 

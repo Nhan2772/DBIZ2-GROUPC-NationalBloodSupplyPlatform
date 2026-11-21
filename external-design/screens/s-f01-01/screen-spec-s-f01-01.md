@@ -8,7 +8,7 @@
 | Priority | Must |
 | Feature | F-01 Blood Ordering & Fulfillment |
 | Activity diagrams | AD-UC-01 |
-| Mockup images | `img/S-F01-01.png` (default), `img/S-F01-01-numbered.png`, four state images (section 2) |
+| Mockup images | `img/s-f01-01.png` (default), `img/S-F01-01-numbered.png`, four state images (section 2) |
 | Frame width | 1440px (desktop, as in the project UI conventions v2.0) |
 | Figma frame | https://www.figma.com/design/oR1xULg2oLdGezDpqdwhdz (frames "S-F01-01 · Yêu cầu cấp máu · 1 to 5") |
 | Status | Draft |
@@ -21,7 +21,7 @@
 
 ## 2. Mockup
 
-![S-F01-01](img/S-F01-01.png)
+![S-F01-01](img/s-f01-01.png)
 
 **Numbered:** each number is the # of the element inventory in section 3. Elements 5 (Error banner) and 17 (Sending banner) appear only in the error and loading states, so they are numbered on those images. Elements 18 to 21 appear only in the success state.
 

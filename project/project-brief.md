@@ -35,7 +35,7 @@ Business decisions are recorded in [the decision log](decision-log.md).
 | Member | Role | Owns |
 |---|---|---|
 | Vu Thanh Nhan | Project manager | TBD |
-| Nguyen Minh Anh | TBD | TBD |
+| Nguyen Minh Anh | Quality manager | Check UC Lists: UC-01 to UC-12, Check Function List & Costs: FR-01-03-BE to FR-01-05, FR-04-03, Sequence Diagrams for UC-04, UC-05, UC-07, Rule Check |
 | Dao Bich Hang | Schedule manager | CVCA/ Context diagram,Sequence UC08, UC-09, UC-10, Check Function List & Cost: FR-02-01 to FR-02-05, FR-04-04, Check capital calculations, s-f02-02 (Inventory Dashboard),s-f02-03 (Near Expiry Units), architecture, activity index, w5-handover |
 | Phung Duc Minh | Cost Manager | Sequence Diagrams for UC-11, UC-13, UC-14, Function List FR-03-01 to FR-03-03, FR-04-05, Cost & Budgeting, Check UC-List: UC-13 to UC-16, s-f03-02 (Demand Data Review), s-f03-04 (Forecast Review and Approval), ui-conventions, w6-cash-flow, README |
 | Le Thanh Nga | TBD | TBD |

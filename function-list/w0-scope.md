@@ -47,6 +47,7 @@ Feature count: 4 (allowed 3 to 6): PASS. Coverage against the CVCA: every primar
 | Cancellation of a blood request by the hospital | Decision log D-06 | The hospital asks the Dept, which records Not approved with reason "Cancelled by hospital" (FR-01-09). |
 | Blood products other than red blood cells | Decision log D-12 | Product type is a field everywhere; release 1 enables red blood cells only. Other products continue by phone. |
 | Below-threshold alerts on hospital stock | Decision log D-18 | Release 1 alerts on NBC stock only; hospital thresholds follow once hospital inventory data is reliable. |
+| Blood bags other than 350 ml (250 ml, 450 ml) | Decision log D-27 | Release 1 counts one unit as one 350 ml bag. The bag volume is stored as a field (default 350) everywhere, so a later release adds other volumes without a data change. |
 
 ## Table 4. Data functions
 
@@ -66,11 +67,11 @@ The data group names are the names Screen Specs use as data sources.
 
 | BR | Rule |
 |---|---|
-| BR-01 | A blood request needs a blood type chosen from the 8 valid types (A+, A-, B+, B-, AB+, AB-, O+, O-), blood product from the enabled list (release 1: red blood cells), an urgency of Emergency, Urgent or Routine, and a quantity that is a whole number of 1 or more. A missing or invalid value means no request is created. |
+| BR-01 | A blood request needs a blood type chosen from the 8 valid types (A+, A-, B+, B-, AB+, AB-, O+, O-), a blood product from the enabled list (release 1: red blood cells), an urgency of Emergency, Urgent or Periodic, and a quantity that is a whole number of 1 or more. One unit is one bag of 350 ml; release 1 accepts 350 ml bags only. A missing or invalid value means no request is created. |
 | BR-02 | A request moves in order Pending, Dispatched, Received, or from Pending to Not approved (final, reason required). Only a Pending request can be approved and dispatched. |
 | BR-03 | Hospital Staff can confirm receipt only for a shipment in Dispatched status, and only once per shipment, so units are never added to hospital inventory twice. |
 | BR-04 | Only eligible blood units (not expired, available) can be assigned to an order. If eligible stock is insufficient, dispatch is blocked. |
-| BR-05 | The request queue is ordered by urgency first (Emergency, Urgent, Routine), then by submission time. |
+| BR-05 | The request queue is ordered by urgency first (Emergency, Urgent, Periodic), then by submission time. |
 | BR-06 | Hospital Staff see only their own hospital's requests and inventory. NBC users see only the data allowed for their role and department. |
 | BR-07 | A forecast is published only after the NBC Forecasting Analyst approves it. A rejected forecast is not published. |
 | BR-08 | A demand record whose verification request is still unanswered at the forecast cut-off is excluded from the forecast. |

@@ -1,6 +1,6 @@
 # W2 Costing and roll-up: NBSP
 
-> DBIZ2 Group C. Function list and effective priorities exactly as in the team's costing sheet (29 L2, 54 L3). FR-02-07 is not yet in W1 or W4: add it there so the three files agree.
+> DBIZ2 Group C. Function list and effective priorities exactly as in the team's costing sheet (29 L2, 54 L3). W1, W2 and W4 agree: same 29 L2 and 54 L3, same base hours, same effective priorities (checked 21/11/2026).
 
 Lesson 5 (block W2). Fully derived from [W1](w1-function-list-2.md), the effective priorities in [W4](w4-priorities-v1.md) and the class Parameters:
 
@@ -97,7 +97,7 @@ Lesson 5 (block W2). Fully derived from [W1](w1-function-list-2.md), the effecti
 | Feature count | 4 | 3 to 6 | PASS |
 | Function-point cross-check: (85 transactional FP + 57 data FP) x 3 h = 426 h, plus 64 h of NC work = 490 h vs 356 bottom-up base h | 27.3% apart | at most 30% | PASS |
 
-Assumptions behind two figures: FR-02-07 is counted as an external input (EI, 4 FP) and is not flagged as hidden work, because it has no W1 row yet. If the W1 row sets a different type, update the FP line and the hidden-work share (counting it as hidden gives 33.3%).
+Function-point cross-check confirmed (21/11/2026): the 85 transactional FP include FR-02-07 as an external input (EI, 4 FP), matching its W1 row (FP type EI). Its two L3 rows are not hidden work in W1, so the hidden-work share stays 31.3%. No recalculation is pending.
 
 Three observations the team carries into W4:
 

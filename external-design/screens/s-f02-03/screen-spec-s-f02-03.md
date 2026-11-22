@@ -13,8 +13,6 @@
 | Design references | [UI Conventions](../../ui-conventions.md) · canonical [S-F01-01](../s-f01-01/screen-spec-s-f01-01.md) (layout only) |
 | Screen List | [`screen-list.md`](../../screen-list.md) |
 | Frame size | **1440 × 1024 px**, desktop, 1×; additional content scrolls vertically in implementation |
-| Language | **Documentation: English; user-facing application/UI copy: Vietnamese** |
-| Artefacts | **5 normal PNG + 5 numbered PNG**, `img/s-f02-03-*.png` |
 | Version / status | **v1.0, 21/11/2026 — Reviewed draft**, pending listed Open Questions |
 ## 1. Purpose
 

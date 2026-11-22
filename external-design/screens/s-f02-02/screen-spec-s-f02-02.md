@@ -41,10 +41,10 @@ The five state images show the **NBC Dept variant**. The permission-denied error
 | Empty | Dept | ![S-F02-02 empty numbered](img/s-f02-02-empty-numbered.png) | 1–13, 19–21, 25, 27, 31 |
 | Loading | Dept | ![S-F02-02 loading numbered](img/s-f02-02-loading-numbered.png) | 1–13, 19–23, 31 |
 | Error (read failed) | Dept | ![S-F02-02 error numbered](img/s-f02-02-error-numbered.png) | 1–13, 19–21, 24–26, 31 |
-| Error (permission denied) | Hospital Staff | ![S-F02-02 error permission numbered](img/s-f02-02-error-permission-numbered.png) | 1–13, 19, 24, 25, 31 |
+| Error (permission denied) | Hospital Staff | ![S-F02-02 errornumbered](img/s-f02-02-error-numbered.png) | 1–13, 19, 24, 25, 31 |
 | Success | Dept | ![S-F02-02 success numbered](img/s-f02-02-success-numbered.png) | 1–21, 28–30 |
-| Default | Hospital Staff | ![S-F02-02 hospital default numbered](img/s-f02-02-hospital-default-numbered.png) | 1–13, 15–17, 19, 29, 30 |
-| Default | NBC Operations | ![S-F02-02 ops default numbered](img/s-f02-02-ops-default-numbered.png) | 1–19, 29, 30 |
+| Default | Hospital Staff | ![S-F02-02 default numbered](img/s-f02-02-default-numbered.png) | 1–13, 15–17, 19, 29, 30 |
+| Default | NBC Operations | ![S-F02-02 default numbered](img/s-f02-02-default-numbered.png) | 1–19, 29, 30 |
 
 | Frame | Image |
 |---|---|

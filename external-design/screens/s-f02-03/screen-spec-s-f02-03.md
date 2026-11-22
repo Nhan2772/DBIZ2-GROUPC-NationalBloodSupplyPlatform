@@ -1,4 +1,3 @@
-[screen-spec-s-f02-03.md](https://github.com/user-attachments/files/35225795/screen-spec-s-f02-03.md)
 # Screen Spec: S-F02-03 Near-Expiry Blood Units
 
 | Field | Value |

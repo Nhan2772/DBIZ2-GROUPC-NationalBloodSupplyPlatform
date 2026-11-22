@@ -52,10 +52,10 @@ The five state images show the **NBC Dept variant**. The permission-denied error
 | Empty | `img/s-f02-02-empty.png` |
 | Loading | `img/s-f02-02-loading.png` |
 | Error (read failed) | `img/s-f02-02-error.png` |
-| Error (permission denied) | `img/s-f02-02-error-permission.png` |
+| Error (permission denied) | `img/s-f02-02-error.png` |
 | Success | `img/s-f02-02-success.png` |
-| Hospital Staff, Default | `img/s-f02-02-hospital-default.png` |
-| NBC Operations, Default | `img/s-f02-02-ops-default.png` |
+| Hospital Staff, Default | `img/s-f02-02-default.png` |
+| NBC Operations, Default | `img/s-f02-02-default.png` |
 
 All colours, fonts and corners come from the design tokens in
 [ui-conventions.md](../../ui-conventions.md#6-design-tokens-and-visual-conventions--proposed-for-figma).

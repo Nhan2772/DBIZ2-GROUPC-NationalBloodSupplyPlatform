@@ -28,18 +28,18 @@ covers two use cases.
 | UC-03 | Confirm Blood Received | F-04 | Must | `AD-UC-03.md` |  | |
 | UC-04 | Record Blood Usage | F-05 | Must | `AD-UC-04.md` |  | |
 | UC-05 | Log Surgical Schedules with Blood Demand | F-06 | Must | `AD-UC-05.md` |  | |
-| UC-06 | Sign in with Hospital account | F-01 | Must | `AD-UC-06.md` |  | |
-| UC-07 | View Request Queue | F-08 | Must | not needed | | Single display step (pending requests sorted by urgency) |
+| UC-06 | Sign in with Hospital account | F-01 | Must | not needed |  | same sign-in for every flow, no business decision. |
+| UC-07 | View Request Queue | F-08 | Must | not needed | | Single display step |
 | UC-08 | Approve & Dispatch Blood Order | F-09 | Must | `AD-UC-08.md` |  | |
-| UC-09 | View Inventory Dashboard | F-10 | Must | `AD-UC-09.md` |  | |
+| UC-09 | View Inventory Dashboard | F-10 | Must | not needed |  | Single display step |
 | UC-10 | View Near-Expiry Blood Units | F-11 | Should | not needed | | Should priority; one lane; only a list or empty-list display |
 | UC-11 | Receive Below-Threshold Alert | F-12 | Must | `AD-UC-11.md` |  | |
-| UC-12 | Sign in with NBC account | F-07 | Must | `AD-UC-12.md` |  | |
+| UC-12 | Sign in with NBC account | F-07 | Must | not needed |  | same sign-in for every flow, no business decision |
 | UC-13 | Validate Clinical Demand Data | F-13 | Must | `AD-UC-13.md` |  | |
 | UC-14 | Respond to Data Verification Request | F-14 | Must | `AD-UC-14.md` |  | |
 | UC-15 | Review and Approve Blood Forecast | F-15 | Must | `AD-UC-15.md` |  | |
-| UC-16 | View Validated Blood Forecast | F-16 | Must | `AD-UC-16.md` |  | |
-| UC-17 | Synchronize NBC Inventory | TBD | TBD | `AD-UC-17.md` |  | |
+| UC-16 | View Validated Blood Forecast | F-16 | Must | not needed |  | Single display step |
+| UC-17 | Synchronize NBC Inventory | TBD | Must | `AD-UC-17.md` |  | |
 
 UC-17 is time-triggered, so it needs a diagram if it is confirmed as Must (see finding 1).
 

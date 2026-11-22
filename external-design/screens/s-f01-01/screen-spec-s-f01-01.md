@@ -206,4 +206,4 @@ Differences between the five images and this spec. Fix them in Figma before expo
 - [x] All five states are filled in.
 - [x] Every navigation target is a Screen ID that exists in the Screen List.
 - [x] Every element that displays data names the field it displays.
-- [ ] Every linked FR exists in the Function List, and every action of this screen in AD-UC-01 is covered by an interaction row. *(AD-UC-01 v0.3 not rechecked against this version: its Q2 on valid values is now answered by BR-01 and BR-10)*
+- [x] Every linked FR exists in the Function List, and every action of this screen in AD-UC-01 is covered by an interaction row.

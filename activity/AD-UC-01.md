@@ -7,23 +7,23 @@
 | Feature | `F-01 Blood Ordering & Fulfillment` (W0 Table 2) |
 | Primary actor | Hospital Staff |
 | Lanes | Hospital Staff · NBSP (name taken from the workbook, confirm against the Context Diagram) · no external systems |
-| Inputs (L3-L5) | Context Diagram v<n> · Use Case Diagram v<n> · Sequence: `SD-UC-01` · Architecture/ADR: not used · W1 rows: FR-01-01 (IF clause proposed, see Q1) |
-| Trigger | Hospital Staff submits a blood type, quantity and urgency (FR-01-01). |
+| Inputs (L3-L5) | Context Diagram v4.1 · Use Case Diagram · Sequence: SD-UC-01 (v2) · Architecture/ADR: not used · W1 rows: FR-01-01, FR-01-06 · W0 BR-01, BR-10|
+| Trigger | Hospital Staff submits a blood type, blood product, quantity, urgency, needed-by date and time and a contact person (name and phone), with an optional reason (FR-01-01; BR-01, BR-10). |
 | Preconditions | Hospital Staff is signed in (assumed; sign-in is UC-06 / FR-04-01, not stated in FR-01-01). |
 | Success end state | A Pending blood request exists and is in the NBC request queue. |
 | Failure end state(s) | None in this flow: invalid input is rejected with reasons and the flow returns to validation until the input is valid. Abandoning the request is not modeled (no FR covers it). |
 | FRs covered | `FR-01-01` · `FR-01-06` |
-| Business rules applied | BR-01 (valid blood type, product type, urgency, quantity) |
-| Version / status | v0.3 · Draft |
+| Business rules applied | BR-01 (valid blood type, blood product, urgency, quantity), BR-10 (needed-by date and time, contact name and phone, optional reason) |
+| Version / status | v0.4 · Reviewed |
 | Author | Nhàn |
 
-## 1. Diagram
+## 1. Diagram 
 
 ```mermaid
 swimlane-beta TB
   subgraph HS["Hospital Staff"]
     start@{ shape: sm-circ }
-    a1("Submit blood request with type, quantity and urgency")
+    a1("Submit blood request with blood type, product, quantity, urgency, needed-by time and contact")
     a2("Correct the invalid fields and resubmit")
   end
   subgraph SYS["NBSP"]
@@ -43,9 +43,9 @@ swimlane-beta TB
 
 Reading notes:
 
-- **The invalid-input branch is now approved as FR-01-06 (W1).** Earlier note: FR-01-01 today says only validate, create, queue. The loop is drawn as option B of Q1. The workbook row FR-01-01 needs this IF clause added (EARS): *IF the input fails validation, the system SHALL create no request and SHALL show the reason for each invalid field, and Hospital Staff SHALL be able to correct and resubmit.*
+- **The invalid-input branch is now approved as FR-01-06 (W1).** Earlier note: FR-01-01 today says only validate, create, queue. The loop is drawn as option B of Q1. 
 - `m1` is a merge. The first submission and every resubmission enter validation through it, so the loop returns through a merge and `s1` has one incoming flow.
-- What counts as "valid" is not defined yet (Q2). Until it is, `d1` traces only to FR-01-01, not to a business rule.
+- Valid values are defined by BR-01 (blood type, product, urgency, quantity) and BR-10 (needed-by, contact, reason), so d1 traces to both.
 
 ## 2. Node trace
 

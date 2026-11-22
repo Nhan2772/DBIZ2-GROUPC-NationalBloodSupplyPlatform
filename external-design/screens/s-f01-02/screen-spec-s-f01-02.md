@@ -1,173 +1,193 @@
-# Screen Spec: S-F01-02 Shipment Details and Receipt Confirmation
-
+# Screen Spec: S-F01-02 Shipment details
+ 
 | Field | Value |
 |---|---|
-| Screen ID | `S-F01-02` |
-| Screen name | Shipment Details and Receipt Confirmation (Vietnamese UI title: **“Chi tiết lô hàng”**) |
-| Actor | Hospital Staff — Nhân viên bệnh viện |
-| Priority | **Must** (Screen List; function priorities are kept separate) |
+| Screen ID | S-F01-02 |
+| Screen name | Shipment details (Vietnamese UI title: "Chi tiết lô hàng") |
+| Actor | Hospital Staff |
+| Priority | Must |
 | Feature | F-01 Blood Ordering & Fulfillment |
-| Use cases / FRs | UC-02, UC-03 · FR-01-04, FR-01-05, FR-01-07; supporting FR-04-03 |
-| Activity / sequence | [`SD-UC-02`](../../../use-case/SD-UC-02.md), [`SD-UC-03`](../../../use-case/SD-UC-03.md), [`AD-UC-03`](../../../activity/AD-UC-03.md) |
-| Usage flow | Hospital Staff Flow 1: `S-F04-01 → S-F01-01 → S-F01-02`; [`usage-flow.md`](../usage-flow.md) v2.3 |
-| Design references | [UI Conventions](../../ui-conventions.md) · canonical [S-F01-01](../s-f01-01/screen-spec-s-f01-01.md) (layout only) |
-| Screen List | [`screen-list.md`](../../screen-list.md) |
-| Frame size | **1440 × 1024 px**, desktop, 1×; additional content scrolls vertically in implementation |
-| Language | **Documentation: English; user-facing application/UI copy: Vietnamese** |
-| Artefacts | **5 normal PNG + 5 numbered PNG**, `img/s-f01-02-*.png` |
-| Version / status | **v1.0, 21/11/2026 — Reviewed draft**, pending listed Open Questions |
+| Use cases / FRs | UC-02, UC-03 · FR-01-04, FR-01-05, FR-01-07 (as in `screen-list.md`); related FR-04-03 · BR-02, BR-03, BR-06 |
+| Activity diagrams | AD-UC-03 (action "Confirm arrival of dispatched shipment"); UC-02 has no activity diagram ("not needed", `usage-flow.md`) |
+| Sequence diagrams | SD-UC-02 (v1), SD-UC-03 (v1) |
+| Usage flow | Hospital Staff Flow 1 "Order blood and Receive" (`usage-flow.md` v2.3): S-F04-01 → S-F01-01 → **S-F01-02** |
+| Mockup images | `img/s-f01-02-default.png`, `img/s-f01-02-empty.png`, `img/s-f01-02-loading.png`, `img/s-f01-02-error.png`, `img/s-f01-02-success.png`; numbered: the same five names ending in `-numbered.png` (section 2) |
+| Frame width | 1440 px wide (desktop, UI conventions v2.0 §2.1), 1× (1440 × 1024 px in all five states); the page scrolls vertically when the content is longer |
+| Figma frame | not used (drawn as an HTML wireframe) |
+| Status | Reviewed |
+ 
 ## 1. Purpose
-
-**Shown when:** Hospital Staff opens the hospital's request list from the menu or after successful UC-01 submission. Each hospital sees only its own requests (BR-06); a record may be `Pending`, `Dispatched`, `Received`, or `Not approved` with a reason (BR-02). For a dispatched request, staff can inspect assigned units, expiry dates, shipment status and ETA without modifying records (UC-02, FR-01-04).
-
-**Primary task:** confirm **physical receipt** of a whole dispatched shipment once, after checking the real shipment. A successful server transaction changes the request to `Received` and increases this hospital's inventory exactly once (FR-01-05, BR-03). Any confirmation submitted when the status is not `Dispatched` is rejected without changing request or inventory (FR-01-07). `Dispatched` **does not prove physical delivery**, and ETA does not create a new delivery status.
-
-**Leaves the screen when:** Hospital Staff navigates to `S-F01-01` (new blood request), `S-F02-02` (own inventory), another authorised menu item, or signs out via `S-F04-01`. Receipt confirmation and state feedback stay on this same Screen ID. A `Not approved` request has its reason shown in detail; **no separate notification or screen** is created.
-
+ 
+**Shown when:** Hospital Staff open "Chi tiết lô hàng" from the menu, or press "Xem chi tiết lô hàng" in the success state of S-F01-01. The screen lists the hospital's own requests with their status (Pending, Dispatched, Received, or Not approved with its reason). For a Dispatched request it shows the assigned units, their expiry dates, the shipment status and the ETA without changing stored data (UC-02, FR-01-04). After the staff have physically received and checked the whole shipment, they confirm receipt once on the same screen: NBSP marks the request Received and adds the units to the hospital inventory (UC-03, FR-01-05), or rejects the confirmation and changes nothing if the shipment is not Dispatched (FR-01-07).
+ 
+**The user leaves this screen when:** receipt is confirmed (success state, then "Xem tổng quan tồn kho" or "Gửi yêu cầu cấp máu mới"), or the user opens another menu item, the breadcrumb link "Yêu cầu cấp máu", or signs out. A Not approved request and its reason are read here; no message is sent to the hospital and no other screen opens for it.
+ 
 ## 2. Mockup
-
-![S-F01-02 default](img/s-f01-02-default.png)
-
-**Layout:** same NBSP outer shell as S-F01-01: left role-scoped sidebar, NBSP identity, account + sign-out top bar, breadcrumb, Vietnamese heading and subtitle, two white task/support cards. Business contents are intentionally screen-specific. **No HuyếtMạch rebrand, analytics KPI strip, invented global search, avatar card or extra Screen ID.** The numbers on the blue circles map directly to the Element Inventory below. The frame contains synthetic display values only.
-
-| State | Original image | Numbered image | Element numbers shown |
-|---|---|---|---|
-| **Default** | ![default](img/s-f01-02-default.png) | ![default numbered](img/s-f01-02-default-numbered.png) | 2,1,3,4,5,6,7,8,10,11,12,13,15,14,9,16,17,18,20 |
-| **Empty** | ![empty](img/s-f01-02-empty.png) | ![empty numbered](img/s-f01-02-empty-numbered.png) | 2,1,3,4,5,6,7,8,10,21,19,9,20 |
-| **Loading** | ![loading](img/s-f01-02-loading.png) | ![loading numbered](img/s-f01-02-loading-numbered.png) | 2,1,3,4,5,6,7,8,22,10,9,16,18 |
-| **Error** | ![error](img/s-f01-02-error.png) | ![error numbered](img/s-f01-02-error-numbered.png) | 2,1,3,4,5,6,7,8,23,10,11,12,13,15,14,9,20,18,27 |
-| **Success** | ![success](img/s-f01-02-success.png) | ![success numbered](img/s-f01-02-success-numbered.png) | 2,1,3,4,5,6,7,8,24,10,11,12,13,15,14,9,25,27,19 |
-
-**State intent:** **Default** — hospital request list and an existing `Dispatched` shipment, with receipt acknowledgement chosen by the user · **Empty** — no hospital requests returned by a successful query (distinct from a Pending request having no shipment) · **Loading** — receipt request is being checked and saved, with repeated submission prevented · **Error** — server rejects a repeat receipt confirmation because the shipment is already `Received` · **Success** — server confirms `Received` and a single hospital inventory increment.
-
-## 3. Element inventory
-
-### 3.1. Shared page frame (all states)
-
-| # | Element | Type | Content / source | Required | Behaviour / validation |
-|---:|---|---|---|---|---|
-| 1 | NBSP brand | Logo and name | “NBSP”, “Chuỗi cung ứng máu” | Yes | Same brand and proportions as `S-F01-01`. |
-| 2 | Role-aware sidebar | Navigation | Only the menu items authorised for the current actor | Yes | Active item has background, left indicator, bold text; no alert badge on the menu. |
-| 3 | Account header | Session summary | Organisation from session and Vietnamese role | Yes | Never reveal another hospital's identity or data. |
-| 4 | Đăng xuất | Secondary button | Sign-out action | Yes | Ends session → `S-F04-01`. |
-| 5 | Breadcrumb | Text / authorised links | Vietnamese hierarchy; links only to existing screens | Yes | No fabricated home screen. |
-| 6 | Screen heading | H1 | Vietnamese UI title | Yes | Corresponds to the Screen List. |
-| 7 | Screen subtitle | Description | One sentence describing the current task | Yes | No premature confirmation of an action. |
-| 8 | Primary task card | Rounded white card | List/table and controls for the current use case | Yes | Reuses the visual shell, typography and spacing of `S-F01-01`. |
-| 9 | Supporting card | Rounded white card | Details, guidance or related action | Yes | Relevant to actor; may have contextual placeholders. |
-
-### 3.2. Request/receipt elements
-
-| # | Element | Type | Displayed content / logical source | Required | Validation and behaviour |
-|---:|---|---|---|---|---|
-| 10 | Yêu cầu của bệnh viện + Trạng thái | Heading + status filter | Hospital-scoped requests; Pending / Dispatched / Received / Not approved | Yes | Filter is presentation/query only; not a state mutation. |
-| 11 | Request list | Read-only list | Request ID, blood type/quantity, status, “Xem” | If records exist | Only current hospital; selecting a request loads its own detail. |
-| 12 | Selected request heading and status | Summary + chip | Request ID; database status rendered in Vietnamese | If selected | `Dispatched` label “Đã xuất kho / đang vận chuyển” is explanatory, **not proof of delivery**. |
-| 13 | Shipment detail values | Read-only key/value | Shipment ID, blood group/product, assigned quantity | If `Dispatched`/`Received` | Values from authorised shipment, not values inferred from request form. |
-| 14 | Assigned unit table | Read-only table | Unit ID, ABO/Rh, expiry date, product | If shipment exists | Complete unit IDs and expiries. No row allocation action in Hospital screen. |
-| 15 | ETA | Read-only date/time | Shipment ETA `dd/MM/yyyy HH:mm` | If available | Estimate only; never displays delivery completion by itself. |
-| 16 | Receipt guidance | Banner | “Chỉ xác nhận sau khi bệnh viện đã nhận và kiểm tra lô.” | Default / Loading | Separate physical receipt from Dispatched DB status. |
-| 17 | Physical-check acknowledgement | Checkbox | “Tôi đã nhận và kiểm tra thực tế toàn bộ lô hàng này.” | **Proposed UI safeguard** | Checked in Default mock to illustrate user action; never pre-check automatically. **Backend rule remains the status check in FR-01-07.** |
-| 18 | Xác nhận đã nhận máu | Primary / disabled button | Submit receipt for the selected shipment ID | If dispatched | When activated, prevent double-submit; server must recheck status and commit one atomic inventory update. |
-| 19 | Gửi yêu cầu cấp máu | Navigation | Open request screen | Empty / Success | Target `S-F01-01`; not a new function. |
-| 20 | Receipt safety / status explanation | Support note | Whole-shipment confirmation, status and duplicate protection | When applicable | Not a record status; no temperature, courier or damaged-package fields are implied by W1. |
-| 21 | Empty result block | Empty state | “Chưa có yêu cầu cấp máu” | Empty | Means no requests at all in this query; **not** “request Pending”. |
-| 22 | Loading message and placeholders | `role="status"` + skeleton | “Đang kiểm tra trạng thái lô” and disabled action | Loading | No second confirmation before response. |
-| 23 | Failed receipt / duplicate banner | `role="alert"` | “Lô hàng này đã được xác nhận nhận máu. Không ghi tăng tồn kho lần nữa.” | Error | FR-01-07: unchanged DB/inventory; selection is refreshed to Received in sample. |
-| 24 | Receipt success feedback | `role="status"` | “Đã xác nhận nhận máu. Các đơn vị máu được ghi nhận vào tồn kho bệnh viện.” | Success | Only after server confirms both status and inventory mutation. |
-| 25 | Receipt result summary | Read-only | Shipment ID, count, Received status | Success | No second confirm CTA. |
-| 26 | Not approved reason (alternate branch) | Read-only detail | “Không được phê duyệt”, stored reason | If selected request is Not approved | Required by Screen List/FR-01-09 (upstream); no receipt action and no separate notification. *Not one of the five illustrated PNG states.* |
-| 27 | Xem tổng quan tồn kho | Navigation button | Open inventory dashboard | Error / Success | Target `S-F02-02`, hospital-scoped view. |
-
-## 4. States
-
-| State | Trigger | Visible result | Persisted result |
-|---|---|---|---|
-| **Default** | Request list + dispatched shipment successfully loaded | Hospital request list, assigned units, expiry, ETA, status, physical-check acknowledgement | No data change; illustrative acknowledgement is a user choice, never automatic. |
-| **Empty** | Successful request-list query returns no records | “Chưa có yêu cầu cấp máu”, navigation to request form | None. A Pending request is **not** considered no request. |
-| **Loading** | Receipt submitted, reply pending | Loading message, skeleton/disabled confirmation, no success claim | Pending server result; no client-side update. |
-| **Error** | Duplicate receipt or status changed on server | Failed-confirmation reason; current `Received` status shown | No additional receipt/inventory increment (FR-01-07). |
-| **Success** | Backend confirms atomic receipt transaction | Received status, summary and inventory navigation | Request `Received`, assigned units added once to same hospital inventory. |
-
-**Other business views on the same screen (not separate PNGs):** `Pending` → request details but no shipment yet, no confirmation; `Not approved` → reason and new-request option; `Received` → read-only confirmation state, disabled repeat action. A technically uncertain response must show an unknown-result message, then re-fetch status before any retry (UI Conventions §4).
-
-## 5. Interactions and navigation
-
-| # | Element / user action | NBSP response | Destination |
-|---:|---|---|---|
-| 1 | Menu “Chi tiết lô hàng” / enter from `S-F01-01` | Query requests for authenticated hospital | Stays (`Loading` → `Default`/`Empty`/`Error`) |
-| 2 | Status filter | Query/filter within the same hospital scope | Stays |
-| 3 | “Xem” request | Loads that request; for `Dispatched`, displays units, expiry, ETA | Stays |
-| 4 | Open `Pending` or `Not approved` | Show status; for Not approved show stored reason; no confirm | Stays |
-| 5 | Toggle acknowledgement | Local UI only; **does not mark request Received** | Stays |
-| 6 | “Xác nhận đã nhận máu” | Backend checks status, updates Received and inventory once, or rejects with reason | Stays → `Loading` → `Success`/`Error` |
-| 7 | “Xem tổng quan tồn kho” | Fetch own hospital/NBC available inventory | `S-F02-02` |
-| 8 | “Gửi yêu cầu cấp máu (mới)” | Opens request form | `S-F01-01` |
-| 9 | Other Hospital menu item | Authorised route only | `S-F02-01`, `S-F03-01`, `S-F03-03` as appropriate |
-| 10 | “Đăng xuất” | Ends session | `S-F04-01` |
-
-## 6. Screen-level rules
-
-| ID | Rule | Source |
+ 
+![S-F01-02](img/s-f01-02-default.png)
+ 
+**Layout (all states):** sidebar on the left (brand, role group, Hospital Staff menu); top bar (hospital name, role, Sign out); breadcrumb, title and subtitle; main card on the left ("Yêu cầu của bệnh viện": status filter, request list, details of the selected request); card "Xác nhận đã nhận máu" on the right (receipt guidance, check box, confirm button, result).
+ 
+**Numbered:** each number is the # of the element inventory in section 3. A repeated element (a row of the list, a row of the unit table) is numbered once. Elements 21 to 25 appear only in one state each and are numbered on that state's image. Element 26 (status message for a Pending or Not approved request) has no image; it is described in sections 3 and 4 only.
+ 
+| State | Numbered image | Numbers shown |
 |---|---|---|
-| SR-02-01 | Request-list data and shipment details belong to the currently authenticated hospital only. | BR-06; FR-04-03; SD-UC-02 |
-| SR-02-02 | UC-02 is read-only; assigned units/expiry/status/ETA are displayed only for a dispatched shipment. | FR-01-04 |
-| SR-02-03 | `Pending`, `Dispatched`, `Received`, `Not approved` are the request status set; a non-approved request shows a reason. | BR-02; Screen List; UI Conventions |
-| SR-02-04 | `Dispatched`/ETA must never be labelled as physical delivery success. | UI Conventions §1.2; UC-03 |
-| SR-02-05 | Receipt requires backend status `Dispatched`, once per shipment; reject any other status and preserve inventory. | FR-01-07; BR-03 |
-| SR-02-06 | On valid receipt, server marks `Received` and adds all assigned units to hospital inventory together. | FR-01-05; AD-UC-03; SD-UC-03 |
-| SR-02-07 | Loading or uncertain connectivity does not permit duplicate submission or a premature Success message. | UI Conventions §3–4 |
-| SR-02-08 | Physical-check checkbox is a **UI safeguard proposal**, not a newly approved field or database status. | UI design proposal, needs team confirmation |
-
-## 7. Linked requirements
-
-| Requirement | Screen responsibility |
+| Default | ![S-F01-02 default numbered](img/s-f01-02-default-numbered.png) | 1–18, 20 |
+| Empty | ![S-F01-02 empty numbered](img/s-f01-02-empty-numbered.png) | 1–10, 19–21 |
+| Loading | ![S-F01-02 loading numbered](img/s-f01-02-loading-numbered.png) | 1–10, 16, 18, 22 |
+| Error | ![S-F01-02 error numbered](img/s-f01-02-error-numbered.png) | 1–15, 18, 20, 23, 27 |
+| Success | ![S-F01-02 success numbered](img/s-f01-02-success-numbered.png) | 1–15, 19, 24, 25, 27 |
+ 
+| State | Image |
 |---|---|
-| FR-01-04 | List hospital requests and inspect authorised dispatched shipment details. |
-| FR-01-05 | Confirm receipt, show `Received`, and explain one atomic inventory increment. |
-| FR-01-07 | Reject premature or duplicate confirmation with reason, preserve data and inventory. |
-| FR-04-03 / BR-06 | Hospital-scoped menu and data, backend authorisation. |
-| BR-02 / FR-01-09 (upstream) | Present `Not approved` and its recorded reason; the hospital does not decide approval here. |
-| UC-04 (related) | Damaged/missing units follow approved usage/discard flow; this screen does not create partial-receipt controls. |
-
-## 8. Desktop and accessibility notes
-
-- Rendered at **1440 × 1024 px, 1×**, shared NBSP shell. Real datasets may scroll vertically; do not reduce core text to fit.
-- Focus order: sidebar → request filter/list → selected detail → acknowledgement → receipt action → related links. Button/checkbox targets ≥24 CSS px (prefer 40–44 px); primary action ≥44 px.
-- All statuses have text, not colour alone. Unit ID, expiry, ETA and request code stay legible. The warning banner is `role="status"`, transaction errors `role="alert"`, success `role="status"`.
-- Client acknowledgement may aid safe interaction but **does not replace the backend `Dispatched` check**. In the Default screenshot it is checked to demonstrate the user-selected ready-to-submit case, not automatically checked based on ETA.
-
-## 9. Mockup corrections and scope decisions
-
-| Source concern | Resolution in this package |
-|---|---|
-| Sample LabDesk seat-booking images are unrelated | Used **only** S-F01-01 as NBSP layout reference; no seat-map content. |
-| Earlier receipt prototype added courier/temperature/package conditions | Not reproduced as mandatory fields: FR-01-04/05/07 do not specify them. |
-| Earlier prototype inferred “Đã giao tới bệnh viện” from Dispatched | Replaced with explanatory `Dispatched` / “Đang vận chuyển”; physical receipt is a Hospital action. |
-| Need to display declined requests | Same S-F01-02 list and reason in detail; no new Screen ID. |
-| Receipt duplicate protection | Error is an actual backend rejection, not an invented `Blocked` status. |
-
-## 10. Open questions
-
-| ID | Question | Blocking? | Status |
+| Default | `img/s-f01-02-default.png` (request YC-2026-018 Dispatched and selected, 2 units O−, ETA 22/11/2026 10:00, check box ticked by the user) |
+| Empty | `img/s-f01-02-empty.png` (the hospital has no request yet) |
+| Loading | `img/s-f01-02-loading.png` (receipt confirmation sent, waiting for the server) |
+| Error | `img/s-f01-02-error.png` (repeated confirmation of a shipment already Received, FR-01-07; the "not yet Dispatched" and "unknown result" errors are described in section 4 only) |
+| Success | `img/s-f01-02-success.png` (request Received, units added to the hospital inventory) |
+ 
+All colours, fonts and corners come from the design tokens in the UI conventions v2.0, section 6 ([ui-conventions.md](../../ui-conventions.md#6-design-tokens)), except the colours listed in open question 2.
+ 
+**Mockup corrections** (differences between the images and this spec; fix them before the final export):
+ 
+| # | Image | Problem | Fix |
 |---|---|---|---|
-| OQ-02-01 | Should the physical-check acknowledgement checkbox be compulsory client-side, or should the existing Confirm button rely solely on the server precondition? | No | **UI proposal only**; no new backend FR assumed. |
-| OQ-02-02 | Exact request ID / shipment ID / unit ID API schema and selection filters? | For binding | Pending backend contract. |
-| OQ-02-03 | Whether a Pending request has a selectable detail view with only request data, and how the list handles very large histories. | No | Keep as read-only list detail, pagination TBD. |
-| OQ-02-04 | Must the hospital acknowledge mismatch/damage during receipt, beyond the current whole-shipment rule? | Scope-impacting | **No additional UI**; D-10 points to UC-04 for discard reason. |
-
-### Implementation invariants (all states)
-
-- **Server authority:** database records and status transitions are controlled by the backend, not a badge, button, ETA, filter or mockup.
-- **Confidentiality:** scoped data must be enforced by the backend (`FR-04-03`, BR-06), not by frontend menu hiding alone.
-- **Message discipline:** distinguish Empty (successful query with no data), Error (unavailable/invalid operation), Loading (pending response) and Success (server-confirmed result). If a mutation response is uncertain, do not claim success or retry without checking the server state first.
-- **Visual standard:** Vietnamese visible labels, date `dd/MM/yyyy`, date/time `dd/MM/yyyy HH:mm`, ABO+Rh notation, text+icon/shape status; no state inferred from colour alone.
-
+| 1 | All | The menu has 6 items ("Ghi nhận sử dụng máu", "Nhu cầu máu theo kế hoạch") | Use the 5 items of S-F01-01 v1.2, with "Sử dụng & nhu cầu máu" (S-F02-01 v2.0) |
+| 2 | Default | Subtitle of card 9 starts with the code "UC-03 ·" | Remove the code: "Chỉ thực hiện sau khi nhận hàng thực tế." (UI conventions §0 rule 5, §1.1) |
+| 3 | Default, Error, Success | Texts 20, 23 and 24 show "Dispatched", "Received" and "FR-01-07" | Use the Vietnamese labels "Đã xuất kho / đang vận chuyển", "Đã xác nhận nhận máu" and no FR code (UI conventions §1.1, §1.2) |
+| 4 | Default | Banner 16 body text differs from the message library | "Lô hàng đang vận chuyển. Chỉ xác nhận sau khi bệnh viện đã nhận và kiểm tra lô." (UI conventions §4.2) |
+| 5 | All | Footer note "NBSP · Dữ liệu minh họa, không phải số liệu thực tế" under the cards | Mockup annotation only; not part of the screen, remove from the final export |
+ 
+## 3. Element inventory
+ 
+Vietnamese labels are written as they appear in the mockup (after the corrections above).
+ 
+### 3.1 Page frame (all states)
+ 
+| # | Element | Type | Content / data source | Required | Validation |
+|---|---|---|---|---|---|
+| 1 | Brand | Logo and text | static: "NBSP", "Chuỗi cung ứng máu" | Yes | none |
+| 2 | Menu | Navigation | static; role group "NHÂN VIÊN BỆNH VIỆN" and the 5 items allowed for Hospital Staff (FR-04-03): "Yêu cầu cấp máu", "Chi tiết lô hàng" (current, marked by background, left bar and bold text), "Sử dụng & nhu cầu máu", "Phản hồi xác minh", "Tổng quan tồn kho"; footer text "Nền tảng quản lý chuỗi cung ứng máu", "Giao diện theo quyền truy cập". No count badge | Yes | none |
+| 3 | Account info | Text | `hospital.name` ("[Tên bệnh viện]") and the role "Nhân viên bệnh viện", from the session | Yes | none |
+| 4 | Sign out | Secondary button | label "Đăng xuất" | Yes | none |
+| 5 | Breadcrumb | Text with link | "Yêu cầu cấp máu" (link to S-F01-01) / "Chi tiết lô hàng" | Yes | none |
+| 6 | Title | Header | static: "Chi tiết lô hàng" | Yes | none |
+| 7 | Subtitle | Text | static: "Theo dõi yêu cầu cấp máu, xem đơn vị đã điều phối và xác nhận khi đã nhận thực tế." | Yes | none |
+ 
+### 3.2 Request card (left)
+ 
+| # | Element | Type | Content / data source | Required | Validation |
+|---|---|---|---|---|---|
+| 8 | Request card | Card with title | static: "Yêu cầu của bệnh viện", "Chỉ hiển thị các yêu cầu thuộc bệnh viện đã đăng nhập." | Yes | none |
+| 10 | Status filter | Label and select | label "Trạng thái"; values "Tất cả" (default), "Đang chờ xử lý", "Đã xuất kho / đang vận chuyển", "Đã xác nhận nhận máu", "Không được phê duyệt" (`request.status`, BR-02, UI conventions §1.2) | Yes | one value of the list; filters inside the hospital's own requests only (BR-06) |
+| 11 | Request list | List of rows | per row: `request.id`; `request.blood_type` · `request.quantity` + " đơn vị"; status chip from `request.status` (Pending "Đang chờ xử lý", Dispatched "Đang vận chuyển", Received "Đã xác nhận nhận máu", Not approved "Không được phê duyệt"); link "Xem", or "Đang xem" on the selected row (background and left bar) | Yes, when the hospital has requests | read-only; only requests of `session.hospital_id` (BR-06, FR-04-03) |
+| 12 | Selected request header | Header and status chip | "Chi tiết yêu cầu " + `request.id`; caption "Thông tin lô hàng được NBSP ghi nhận"; chip `request.status` with its full label ("Đã xuất kho / đang vận chuyển", "Đã xác nhận nhận máu") | Yes, when a request is selected | read-only |
+| 13 | Shipment details | Label–value rows | "Mã lô hàng" `shipment.id`; "Nhóm máu / chế phẩm" `shipment.blood_type` · `shipment.blood_product`; "Số lượng" `shipment.unit_count` + " đơn vị" | Yes, when the request is Dispatched or Received | read-only (FR-01-04) |
+| 14 | Assigned units | Table with title | title "Đơn vị máu đã phân công", count `shipment.unit_count` + " đơn vị"; columns "Mã đơn vị" `unit.id`, "Nhóm máu" `unit.blood_type`, "Hạn dùng" `unit.expiry_date` (dd/MM/yyyy), "Chế phẩm" `unit.blood_product` | Yes, when the request is Dispatched or Received | read-only; unit IDs and expiry dates never truncated (UI conventions §5) |
+| 15 | ETA | Label–value | "Dự kiến đến (ETA)" `shipment.eta` (dd/MM/yyyy HH:mm) | Yes, when the request is Dispatched or Received | read-only; an estimate, never shown as delivery |
+ 
+### 3.3 Receipt card (right)
+ 
+| # | Element | Type | Content / data source | Required | Validation |
+|---|---|---|---|---|---|
+| 9 | Receipt card | Card with title and rows | title "Xác nhận đã nhận máu"; subtitle by state ("Chỉ thực hiện sau khi nhận hàng thực tế.", "Đang chờ kết quả máy chủ.", "Thông tin trạng thái đã được kiểm tra lại.", "Kết quả xác nhận của bệnh viện."); rows "Yêu cầu" `request.id`, "Đơn vị dự kiến" `shipment.unit_count` + `shipment.blood_type`; error state: "Trạng thái hiện tại" chip and "Mã lô" `shipment.id`; empty state: icon, "Chưa chọn lô hàng", "Chọn yêu cầu đã xuất kho để xem đơn vị máu và xác nhận khi đã nhận thực tế." | Yes | read-only |
+| 16 | Receipt guidance | Banner (`role="status"`) with icon | Default: "Đã xuất kho / đang vận chuyển" + "Lô hàng đang vận chuyển. Chỉ xác nhận sau khi bệnh viện đã nhận và kiểm tra lô." (UI conventions §4.2); Loading: "Hệ thống đang kiểm tra trạng thái lô và cập nhật tồn kho bệnh viện." | Yes, when the request is Dispatched | none |
+| 17 | Physical-check box | Check box with label | "Tôi đã nhận và kiểm tra thực tế toàn bộ lô hàng này." | Yes, when the request is Dispatched | never ticked by default or from the ETA; must be ticked before element 18 is enabled (SR-007) |
+| 18 | Confirm receipt | Primary button | label "Xác nhận đã nhận máu"; loading: "Đang xác nhận..."; request already Received: "Đã xác nhận · Không thể thao tác" | Yes, when the request is Dispatched or Received | enabled only when the request is Dispatched and element 17 is ticked; disabled while sending and once Received |
+| 19 | New request | Secondary button | label "Gửi yêu cầu cấp máu" (empty state), "Gửi yêu cầu cấp máu mới" (success state) | No | none |
+| 20 | Receipt note | Information box | Default: "Xác nhận chỉ được ghi nhận khi máy chủ kiểm tra trạng thái Đã xuất kho. Toàn bộ lô được xác nhận một lần; số đơn vị được cộng vào tồn kho bệnh viện."; Empty: "Yêu cầu đang chờ xử lý hoặc không được phê duyệt không có thao tác xác nhận nhận máu."; Error: "Đây là phản hồi từ hệ thống. Yêu cầu và tồn kho bệnh viện giữ nguyên." | No | none |
+| 25 | Receipt result | Label–value rows | "Mã lô" `shipment.id`; "Số đơn vị đã nhận" `shipment.unit_count` + " đơn vị"; "Trạng thái" chip `request.status` = Received "Đã xác nhận nhận máu"; note "Hệ thống đã ghi nhận kết quả sau khi xác nhận từ máy chủ. Lô này không thể xác nhận lần hai." | No (success state only) | read-only |
+| 27 | View inventory | Secondary button | label "Xem tổng quan tồn kho" | No (error and success states) | none |
+ 
+### 3.4 State messages
+ 
+| # | Element | Type | Content / data source | Required | Validation |
+|---|---|---|---|---|---|
+| 21 | Empty list | Empty-state block with icon and button 19 | strip "Không có bản ghi · danh sách theo phạm vi bệnh viện"; "Chưa có yêu cầu cấp máu"; "Danh sách yêu cầu của bệnh viện hiện chưa có dữ liệu. Tạo yêu cầu mới để NBC xem xét." | No (empty state only) | none |
+| 22 | Sending banner and placeholders | Banner (`role="status"`) and grey placeholders | main card: "Đang kiểm tra trạng thái lô" + "Vui lòng chờ máy chủ xác nhận kết quả và không nhấn lại."; receipt card: "Đang ghi nhận xác nhận" + "Không gửi lại khi hệ thống chưa trả kết quả."; grey placeholders replace the list, the details and the card rows | No (loading state only) | none |
+| 23 | Error banners | Banner (`role="alert"`) with error icon | main card: "Xác nhận không hợp lệ" + "Trạng thái lô đã là Đã xác nhận nhận máu. Không có thay đổi mới nào được lưu."; receipt card: "Không thể xác nhận lần nữa" + "Lô hàng này đã được xác nhận nhận máu. Không ghi tăng tồn kho lần nữa." (UI conventions §4.2). Other texts in section 4, Error | No (error state only) | none |
+| 24 | Success banners | Banner (`role="status"`) with tick icon | main card: "Đã xác nhận nhận máu" + "Hệ thống cập nhật trạng thái Đã xác nhận nhận máu và tăng tồn kho bệnh viện một lần."; receipt card: "Đã xác nhận nhận máu" + "Các đơn vị máu được ghi nhận vào tồn kho bệnh viện." (UI conventions §4.2) | No (success state only) | shown only after the server confirms |
+| 26 | Request status message | Banner in the details area, in place of elements 13–15 and 16–18 | Pending: "Chưa có thông tin lô hàng được điều phối cho yêu cầu này. Vui lòng kiểm tra lại sau."; Not approved: "Yêu cầu không được phê duyệt. Lý do: " + `request.not_approved_reason` + ". Nếu vẫn cần máu, vui lòng gửi yêu cầu mới." (UI conventions §4.2, FR-01-09) | No (a Pending or Not approved request is selected; no image) | read-only |
+ 
+## 4. States
+ 
+| State | What the user sees | Trigger |
+|---|---|---|
+| Default | Request list with the selected Dispatched request (YC-2026-018); shipment details, ETA and the two assigned units with expiry dates; guidance banner; check box ticked by the user; Confirm receipt enabled. Other views of the same state, no image: a **Pending** request shows element 26 "Chưa có thông tin lô hàng được điều phối…" and no confirm action; a **Not approved** request shows element 26 with the stored reason and button 19; a **Received** request shows the details read-only and button 18 disabled "Đã xác nhận · Không thể thao tác" | Screen opened and the hospital's requests loaded; a request selected with "Xem". From S-F01-01 "Xem chi tiết lô hàng" the new Pending request is selected |
+| Empty (no data) | Status filter, empty block "Chưa có yêu cầu cấp máu" with button "Gửi yêu cầu cấp máu"; receipt card "Chưa chọn lô hàng" and note 20. With a filter other than "Tất cả" and no match, the same block reads "Không có yêu cầu phù hợp bộ lọc" | The hospital has no request, or none matches the filter |
+| Loading | Sending banners (element 22); grey placeholders in the list, the details and the receipt card; Confirm receipt shows "Đang xác nhận..." and is disabled so the confirmation cannot be sent twice | The user pressed Confirm receipt and the server has not answered (also on first load of the list, without banner) |
+| Error | **Repeated confirmation** (image): error banners (element 23); list and details reloaded, the row now shows "Đã xác nhận nhận máu"; Confirm receipt disabled; note 20 and "Xem tổng quan tồn kho"; request and inventory unchanged (FR-01-07). **Not yet Dispatched** (no image): banner "Chưa thể xác nhận nhận máu vì lô hàng chưa ở trạng thái đã xuất kho/điều phối."; status reloaded; nothing changed (FR-01-07). **Unknown result** (no image): banner "Chưa xác định được kết quả thao tác. Hãy tải lại trạng thái hiện tại trước khi thử lại."; the screen claims neither success nor failure and reloads the request status before the button can be used again (UI conventions §4.1) | The server rejected the confirmation because the shipment is not Dispatched (already Received, or not yet dispatched); or the connection was lost before the server answered |
+| Success / confirmation | Success banners (element 24); the row and chip show "Đã xác nhận nhận máu"; receipt result (element 25) with shipment ID and number of units received; buttons "Xem tổng quan tồn kho" and "Gửi yêu cầu cấp máu mới"; no second confirm action | The server marked the request Received and added the units to the hospital inventory (FR-01-05) |
+ 
+## 5. Interactions and navigation
+ 
+| # | Element | User action | System response | Goes to screen |
+|---|---|---|---|---|
+| 1 | Status filter (10) | choose a value | Reloads the list with the hospital's requests of that status (BR-06) | stays |
+| 2 | "Xem" in a request row (11) | click | Selects the request and loads its details: Dispatched → elements 12–18; Received → details read-only, 18 disabled; Pending or Not approved → element 26, no confirm action (FR-01-04) | stays |
+| 3 | Physical-check box (17) | tick or untick | Enables or disables Confirm receipt; saves nothing | stays |
+| 4 | Confirm receipt (18) | click | Shows the loading state; the server checks that the shipment is Dispatched, then marks the request Received and adds all its units to the hospital inventory (FR-01-05), or rejects and changes nothing (FR-01-07) | stays (loading, then success or error state) |
+| 5 | View inventory (27) | click (error and success states) | Opens the hospital inventory | S-F02-02 |
+| 6 | New request (19) | click (empty and success states, and with a Not approved request) | Opens the empty request form | S-F01-01 |
+| 7 | Breadcrumb "Yêu cầu cấp máu" (5) | click | Opens the request form | S-F01-01 |
+| 8 | Menu item "Yêu cầu cấp máu" (2) | click | Opens the request form | S-F01-01 |
+| 9 | Menu item "Chi tiết lô hàng" (2) | click | Current screen; reloads the list | stays |
+| 10 | Menu item "Sử dụng & nhu cầu máu" (2) | click | Opens the usage and planned demand record | S-F02-01 |
+| 11 | Menu item "Phản hồi xác minh" (2) | click | Opens the verification response | S-F03-03 |
+| 12 | Menu item "Tổng quan tồn kho" (2) | click | Opens the inventory dashboard | S-F02-02 |
+| 13 | Sign out (4) | click | Ends the session | S-F04-01 |
+ 
+## 6. Screen-level rules
+ 
+| Rule ID | Rule | Source |
+|---|---|---|
+| SR-001 | The list and every detail belong to the signed-in hospital only; the hospital comes from the session, not from the screen. | BR-06, FR-04-03, SD-UC-02 |
+| SR-002 | Shipment details (units, expiry dates, status, ETA) are shown only for a Dispatched or Received request, read-only; opening them changes no stored data. | FR-01-04, SD-UC-02 |
+| SR-003 | A request has one of four statuses: Pending, Dispatched, Received, Not approved. Not approved is final and shows its stored reason here; no separate message or screen. | BR-02, FR-01-09, UI conventions §1.2 |
+| SR-004 | Dispatched and the ETA are never shown as delivered; "Đang vận chuyển" is an explanatory label, not a status. | UI conventions §1.2 |
+| SR-005 | Receipt can be confirmed only for a Dispatched shipment and only once; any other status is rejected with the reason, and neither the request nor the inventory changes. | BR-03, FR-01-07, AD-UC-03 |
+| SR-006 | A valid confirmation marks the request Received and adds all its units to the hospital inventory together. Only the whole shipment is confirmed; damaged or missing units are recorded afterwards on S-F02-01 as Discarded ("Damaged on arrival", "Missing on arrival"). | FR-01-05, AD-UC-03 (Q2 resolved, D-10) |
+| SR-007 | Confirm receipt is enabled only when the selected request is Dispatched and the physical-check box is ticked; the box is never ticked by default. The server check of SR-005 still applies. | UI conventions §1.2 (receipt note), §3 (Disabled state) |
+| SR-008 | "Success" is shown only after the server confirms; while waiting, Confirm receipt is disabled so it cannot be sent twice. If the result is unknown, the screen reloads the status before allowing a new try. | UI conventions §3, §4.1; SD-UC-03 |
+| SR-009 | State is never shown by colour alone: chips and banners have text and an icon or marker. | UI conventions §5 |
+| SR-010 | No count badge on the menu. | `screen-list.md`, UI conventions OQ-03 |
+ 
+## 7. Linked requirements
+ 
+| FR ID | What this screen does for it |
+|---|---|
+| FR-01-04 | Lists the hospital's requests with their status (the list is counted in FR-01-04, `screen-list.md`) and displays the units, expiry dates, shipment status and ETA of a dispatched request |
+| FR-01-05 | Provides the Confirm receipt action and the success state (Received, units added to the hospital inventory) |
+| FR-01-07 | Shows the rejection and its reason when the shipment is not Dispatched, with request and inventory unchanged |
+| FR-04-03 | Shows only the menu items and the hospital data allowed for the signed-in Hospital Staff |
+| BR-02, BR-03, BR-06 | Status set and Not approved reason, single confirmation, hospital scope (section 6) |
+ 
+## 8. Responsive and accessibility notes
+ 
+- The mockups are drawn at 1440 px wide only, as the UI conventions v2.0 require. A narrow window and mobile are out of scope for this release (UI conventions §2.1); if added later, the receipt card moves under the request card.
+- Keyboard: Tab follows the reading order (menu, status filter, request rows, details, check box, Confirm receipt, other buttons); a focus outline is visible; Space ticks the check box; Enter activates a row link or a button.
+- The guidance, sending and success banners use `role="status"`; the error banners use `role="alert"`.
+- Statuses use a chip with text (and a marker), never colour alone; unit IDs, expiry dates, ETA and request IDs are never truncated.
+- Body text contrast at least 4.5:1; borders of inputs, chips and the check box at least 3:1. Primary button 44–48 px high; other targets at least 24 × 24 px.
+- Body text 14–16 px; helper text 12–13 px.
+## 9. Open questions
+ 
+| # | Question | Blocking? | Status |
+|---|---|---|---|
+| 1 | [NEEDS CLARIFICATION: in which order is the request list sorted, and is it paged when a hospital has many requests? No FR or SD sets it.] | No | Open. Default: newest first; the list scrolls vertically, no paging in release 1. |
+| 2 | Colours in the mockup that are not tokens of UI conventions v2.0 §6: selected row and current menu item `#ECF6F0`, table header `#F4F7F5`, borders `#E0E8E2` / `#DFE6E1`, error border `#E0B5BD`, grey placeholders (`#E2E8E4` and similar; `color/disabled-bg` not defined). | No | Open. Follows UI conventions OQ-08 (`color/border-strong`, `color/disabled-bg` to define). |
+ 
+---
+ 
 ## Completion checklist
-
-- [x] Five unnumbered and five numbered PNGs, all 1440 × 1024 px.
-- [x] Vietnamese application UI; English specification; S-F01-01 shell reused.
-- [x] Hospital-only requests; `Pending`, `Dispatched`, `Received`, `Not approved` and reason are covered.
-- [x] No delivery-status inference, no double inventory increment, no unapproved extra fields.
-- [x] UC-02 and UC-03 share one Screen ID; all visible interactions remain on-screen except authorised navigation.
-- [ ] Confirm checkbox UX and backend payload/pagination before coding.
+ 
+- [x] The mockup is a separate cropped image file, named with the Screen ID, at the frame width. *(five state images, 1440 × 1024 px; corrections 1 to 5 in section 2 still to apply)*
+- [x] The numbered image exists, and its numbers match the # column of the element inventory. *(five numbered images; element 26 has no image, see section 2)*
+- [x] Every visible element in the mockup appears in the element inventory.
+- [ ] Every colour in the mockup is a design token from ui-conventions.md. *(non-token colours, see open question 2)*
+- [x] Every input element has a validation rule or an explicit "none". *(elements 10, 17, 18)*
+- [x] All five states are filled in.
+- [x] Every navigation target is a Screen ID that exists in the Screen List. *(S-F01-01, S-F02-01, S-F02-02, S-F03-03, S-F04-01)*
+- [x] Every element that displays data names the field it displays.
+- [x] Every linked FR exists in the Function List, and every action of this screen in AD-UC-03 is covered by an interaction row. *(FR-01-04, FR-01-05, FR-01-07, FR-04-03 in W1; "Confirm arrival of dispatched shipment" → interaction 4)*
+ 

@@ -1,12 +1,5 @@
 # W6 Financial Appraisal: Cash Flow, NPV, IRR and Payback
 
-Inputs: scenario costs from W5_Handover (Must / Must+Should / full scope), per-feature effort from W2_Rollup.
-
-> **Status (21/11/2026).**
-> - **Cost side: updated.** The investment uses the W5 v2 scenario costs (45.16 / 60.08 / 76.24 million VND, decision log D-25, previously 43.74 / 58.16 / 74.82). Running cost at 12% of build: 5.419.200 / 7.209.600 / 9.148.800 VND per year (previously 5.248.800 / 6.979.200 / 8.978.400).
-> - **Benefit side: not yet recalculated.** The Benefits rows are still the v1 figures. They cannot be recalculated yet because "Section 1.6" (the benefit derivation the Results table refers to) does not exist, and the feature coverage behind the benefits has changed since v1 (for example FR-01-04 raised to Must, FR-02-04 lowered to Could). Write Section 1.6 and recalculate the benefits last, once W1 to W5 are final.
-> - **Other one-time cost:** still empty. Enter hospital onboarding (opening balance import, training) there once it is quoted.
-> - All results below are therefore **provisional**.
 
 ## 1. Assumptions
 

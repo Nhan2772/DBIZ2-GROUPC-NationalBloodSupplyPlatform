@@ -99,7 +99,7 @@ Only the image and Screen Spec **naming patterns** are illustrated above: some s
 | Screen inventory, actors, priority, purpose | [`external-design/screen-list.md`](external-design/screen-list.md) | Screen Specs, navigation |
 | Screen-to-screen routes | [`external-design/screen-transition.md`](external-design/screen-transition.md) | Screen interactions |
 | Vietnamese wording, formats, components, five UI states, tokens | [`external-design/ui-conventions.md`](external-design/ui-conventions.md) | Every screen and UI test |
-| Elements, data sources, per-screen states and interactions | `external-design/screens/<screen-id>/screen-spec-*.md` | Wireframes, frontend implementation and tests |
+| Elements, data sources, per-screen states and interactions | `external-design/screens/<screen-id>/screen-spec.md` | Wireframes, frontend implementation and tests |
 
 **If sources disagree:** identify the owning file; cite both conflicting locations; record a proposed resolution. Do not silently make one source agree with another, especially if the conflict affects an EARS criterion, business rule, permission, or priority.
 
